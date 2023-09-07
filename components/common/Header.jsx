@@ -1,62 +1,77 @@
 "use client"
 import Image from 'next/image'
 import Link from 'next/link'
-import { Box, Button, Typography } from '@mui/material'
-import { createTheme } from '@mui/material/styles';
-
-const hoverlink = {
-    "&:hover": {
-        pb: '1px',
-        color: "red",
-        transition: "all .1s",
-        borderBottom: "1px solid #cecece"
-    }
-}
-
-const theme = createTheme({
-    palette: {
-        ochre: {
-            main: "#ffffff",
-        },
-    },
-});
+import { Box, Button, Typography,Grid } from '@mui/material'
+import { useStyles } from './style-header'
+import HamburgerMenu from './HamburgerMenu'
 
 const Header = () => {
+
+    const classes = useStyles()
+
     return (
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "space-around", bgcolor: 'text.disabled', py: '.6rem', px: "1rem", borderRadius: "10px", my: "1rem", border: "1px solid #636363" }} theme={theme}>
-            <Box sx={{ bgcolor: "error.main", px: ".6rem", borderRadius: "10px" }}>
-                <Link href="/">
-                    <Image alt='next' src={"/images/next.svg"} width={100} height={40} priority />
-                </Link>
-            </Box>
-            <Box sx={{ display: "flex", justifyContentL: "center", alignItems: "center" }}>
-                <Link href="/">
-                    <Typography variant="subtitle1" mx={2} sx={hoverlink}>
-                        Home
-                    </Typography>
-                </Link>
-                <Link href="/movie">
-                    <Typography variant="subtitle1" mx={2} sx={hoverlink}>
-                        movie
-                    </Typography>
-                </Link>
-                <Link href="/blog">
-                    <Typography variant="subtitle1" mx={2} sx={hoverlink}>
-                        blog
-                    </Typography>
-                </Link>
-                <Link href="/about">
-                    <Typography variant="subtitle1" mx={2} sx={hoverlink}>
-                        about
-                    </Typography>
-                </Link>
-            </Box>
-            <Box sx={{ display: "flex", justifyContentL: "center", alignItems: "center" }}>
-                <Button theme={theme} variant='outlined' sx={{ border: "1px solid white", bgcolor: "black", borderRadius: "10px", color: "white" }} color='error'>
-                    Log In
-                </Button>
-            </Box>
-        </Box >
+        <Grid container className={classes.maingrid} sx={{padding:{xs: ".1rem .5rem",md: ".6rem 1rem"}}}>
+            <Grid xs={6} sm={6} md={3} lg={2}>
+                <Box className={classes.parentboxicon}>
+                    <Box className={classes.boxicon}>
+                        <Link href="/">
+                            <Image
+                                alt='next'
+                                src={"/images/next.svg"}
+                                width={0}
+                                height={0}
+                                sizes="100vw"
+                                property
+                                style={{ width: '100%', height: '100%' }} />
+                        </Link>
+                    </Box>
+                </Box>
+            </Grid>
+            <Grid xs={6} sm={6} md={7} lg={8}>
+                <Box component="div" sx={{
+                    display: {
+                        xs: "none",
+                        md: "inline"
+                    }
+                }}>
+                    <Box className={classes.linkbox}>
+                        <Link href="/">
+                            <Typography variant="subtitle1" component="h3" mx={2} className={classes.hoverlink}>
+                                Home
+                            </Typography>
+                        </Link>
+                        <Link href="/movie">
+                            <Typography variant="subtitle1" component="h3" mx={2} className={classes.hoverlink}>
+                                movie
+                            </Typography>
+                        </Link>
+                        <Link href="/blog">
+                            <Typography variant="subtitle1" component="h3" mx={2} className={classes.hoverlink}>
+                                blog
+                            </Typography>
+                        </Link>
+                        <Link href="/about">
+                            <Typography variant="subtitle1" component="h3" mx={2} className={classes.hoverlink}>
+                                about
+                            </Typography>
+                        </Link>
+                    </Box>
+                </Box>
+                <HamburgerMenu />
+            </Grid>
+            <Grid md={2} lg={2} sx={{
+                display: {
+                    xs: "none",
+                    md: "block"
+                }
+            }}>
+                <Box className={classes.buttonandboxhamburger}>
+                    <Button variant='outlined' color='error' className={classes.buttonlogin}>
+                        Log In
+                    </Button>
+                </Box>
+            </Grid>
+        </Grid >
     );
 }
 
