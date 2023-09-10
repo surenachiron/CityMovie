@@ -4,7 +4,9 @@ import { createTheme } from "@mui/material";
 export const theme = createTheme({
     palette: {
         redmain: "#f44336",
-        white: "#ffffff"
+        white: "#ffffff",
+        black: "#000",
+        mode: 'dark',
     },
 });
 

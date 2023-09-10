@@ -1,13 +1,5 @@
 "use client"
-import { makeStyles } from "@mui/styles"
-import { styled } from '@mui/material/styles';
-
-export const useStyles = makeStyles({
-    typograhyh5: {
-        marginTop: "2rem",
-        marginBottom: "10px"
-    },
-})
+import { styled } from "@mui/material";
 
 export const ImageFixer = styled('div')(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {

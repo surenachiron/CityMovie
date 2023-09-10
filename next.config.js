@@ -3,13 +3,9 @@ const nextConfig = {
     experimental: { appDir: true },
     images: {
         domains: [
-            "www.digikala.com",
-            "www.seyedrezabazyar.com",
-            "www.uptvs.com",
-            "sorenmovie.ir",
-            "i.redd.it",
-            "api.themoviedb.org",
-            "image.tmdb.org"
+            "www.themoviedb.org",
+            "image.tmdb.org",
+            "moviesapi.ir"
         ]
     }
 }
