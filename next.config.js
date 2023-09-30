@@ -1,13 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: { appDir: true },
-    images: {
-        domains: [
-            "www.themoviedb.org",
-            "image.tmdb.org",
-            "moviesapi.ir"
-        ]
-    }
+  reactStrictMode: true,
+  images: {
+    domains: [
+      "m.media-amazon.com",
+    ]
+  }
+
 }
 
 module.exports = nextConfig
