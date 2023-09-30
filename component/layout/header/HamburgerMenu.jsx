@@ -1,9 +1,8 @@
-"use client"
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Box, Divider, Button, Drawer, IconButton, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import { Buttonandboxhamburger,Boxdrawer,Closeiconhamburger } from './style-header'
+import { Box, Divider, Drawer, IconButton, ListItemButton, ListItemText } from '@mui/material'
+import { Buttonandboxhamburger, Boxdrawer, Closeiconhamburger, BoxIconHamburger } from './style-header'
 
 import { BiMenu } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -29,7 +28,7 @@ const HamburgerMenu = () => {
 
     return (
         <>
-            <Buttonandboxhamburger>
+            <Buttonandboxhamburger sx={{ height: "100%" }}>
                 <Box sx={{
                     display: {
                         xs: "flex",
@@ -37,8 +36,6 @@ const HamburgerMenu = () => {
                     },
                     justifyContent: "center",
                     alignItems: "center",
-                    py:"8px",
-                    height:"100%"
                 }}>
                     <IconButton
                         edge="start"
@@ -53,15 +50,29 @@ const HamburgerMenu = () => {
                         open={open}
                         onClose={toggleDrawer(false)}
                         onOpen={toggleDrawer(true)}
-                        color="redmain"
                     >
                         <Boxdrawer>
                             <Closeiconhamburger>
-                                <IconButton sx={{ mb: 2 }}>
-                                    <AiOutlineClose color='white' size="1.5rem" onClick={toggleDrawer(false)} />
-                                </IconButton>
+                                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: "12px", width: "100%" }}>
+                                    <BoxIconHamburger>
+                                        <Link href='/' onClick={toggleDrawer(false)} style={{ height: "100%" }}>
+                                            <Image
+                                                alt='next'
+                                                src={"/brand/logo.png"}
+                                                width={75}
+                                                height={20}
+                                                sizes="100vw"
+                                                property="true"
+                                                style={{ width: "100%", height: " 100%" }}
+                                            />
+                                        </Link>
+                                    </BoxIconHamburger>
+                                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }} onClick={toggleDrawer(false)}>
+                                        <AiOutlineClose color='white' size="1.5rem" style={{ cursor: "pointer" }} />
+                                    </Box>
+                                </Box>
                             </Closeiconhamburger>
-                            <Divider sx={{ mb: 2, borderColor: '#ffffff54' }} />
+                            <Divider sx={{ mb: 2, borderColor: '#ffffff54', }} />
                             <Box sx={{ mb: 2, mr: 5 }}>
                                 <Link href='/' onClick={toggleDrawer(false)}>
                                     <ListItemButton>
@@ -72,26 +83,14 @@ const HamburgerMenu = () => {
                                 <Link href='/movies' onClick={toggleDrawer(false)}>
                                     <ListItemButton>
                                         <RiMovieFill color='#f44336' size="1.3rem" style={{ margin: "-4px 8px 0 0" }} />
-                                        <ListItemText primary="Movie" />
-                                    </ListItemButton>
-                                </Link>
-                                <Link href='/blog' onClick={toggleDrawer(false)}>
-                                    <ListItemButton>
-                                        <MdArticle color='#f44336' size="1.3rem" style={{ margin: "-4px 8px 0 0" }} />
-                                        <ListItemText primary="Blog" />
-                                    </ListItemButton>
-                                </Link>
-                                <Link href='/about' onClick={toggleDrawer(false)}>
-                                    <ListItemButton>
-                                        <SiAboutdotme color='#f44336' size="1.3rem" style={{ margin: "-4px 8px 0 0" }} />
-                                        <ListItemText primary="About" />
+                                        <ListItemText primary="Movies" />
                                     </ListItemButton>
                                 </Link>
                             </Box>
                         </Boxdrawer>
                     </Drawer>
                 </Box>
-            </Buttonandboxhamburger>
+            </Buttonandboxhamburger >
         </>
     )
 }

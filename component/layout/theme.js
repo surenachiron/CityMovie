@@ -1,7 +1,6 @@
-"use client"
 import { createTheme } from "@mui/material";
 
-export const theme = createTheme({
+let theme = createTheme({
     palette: {
         redmain: "#f44336",
         white: "#ffffff",
@@ -9,5 +8,12 @@ export const theme = createTheme({
         mode: 'dark',
     },
 });
+
+theme.typography.h4 = {
+    fontSize: "2.2rem",
+    [theme.breakpoints.only('xs')]: {
+        fontSize: '1.4rem',
+    },
+};
 
 export default theme
