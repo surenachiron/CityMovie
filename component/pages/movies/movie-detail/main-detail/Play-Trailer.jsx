@@ -43,7 +43,6 @@ const PlayTrailer = ({ image, id }) => {
                 .then((response) => response.json())
                 .then((data) => {
                     dispatch(setTrailer(data))
-                    console.log(data)
                 })
             dispatch(setLoading(false))
         }

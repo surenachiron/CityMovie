@@ -21,7 +21,6 @@ async function handler(req, res) {
 
         if (!id) {
             res.status(422).json({ message: "Invalid id." })
-            console.log("Invalid id.")
             return;
         }
 
@@ -35,11 +34,9 @@ async function handler(req, res) {
             const url = `https://online-movie-database.p.rapidapi.com/title/get-video-playback?viconst=${idvideo}`;
             const response = await fetch(url, options);
             const result = await response.json();
-            console.log(result.resource.encodings.find(tr => tr.definition === "480p"))
             res.status(201).json(result)
             return;
         } catch (error) {
-            console.error(error.message, "error");
             res.status(201).json({ message: "server error. please try again!" })
             return undefined;
         }
