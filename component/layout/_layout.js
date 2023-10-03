@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
             <Container fixed>
                 <Header />
             </Container>
-            <Container maxWidth="xl">
+            <Container fixed>
                 {children}
             </Container>
         </ThemeProvider>

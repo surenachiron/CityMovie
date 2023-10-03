@@ -4,7 +4,7 @@ import { useState } from "react"
 import store from "@/redux/store"
 import { Provider } from 'react-redux';
 import Layout from "@/component/layout/_layout"
-import Loading from "@/component/common/_loading"
+import Loading from "@/component/common/Loading"
 import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }) {

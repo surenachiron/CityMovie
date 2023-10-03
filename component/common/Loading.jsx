@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import Head from "next/head";
 import Image from "next/image";
 
 const classes = {
@@ -14,6 +15,10 @@ const classes = {
 const Loading = ({ shadow }) => {
     return (
         <>
+            <Head>
+                <title>!Loading...</title>
+                <meta name="description" content="page is loading" />
+            </Head>
             {shadow ? "" : <Box sx={classes.background}></Box>}
             <Box sx={classes.iconloading}>
                 <Image

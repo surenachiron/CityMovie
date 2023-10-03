@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     domains: [
       "m.media-amazon.com",
+      "www.psdstack.com",
     ]
   }
 

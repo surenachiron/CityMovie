@@ -168,7 +168,6 @@ export const Loadingvideo = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    // background: "#00000087",
     backgroundColor: "black",
     opacity: ".80",
     inset: "0px",

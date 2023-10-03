@@ -1,6 +1,6 @@
-import { Box, Button, Typography } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
+import { Box, Button, Typography } from "@mui/material";
 import { BsArrowLeftCircle } from 'react-icons/bs'
 
 const Custom404 = () => {

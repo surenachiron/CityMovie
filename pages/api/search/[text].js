@@ -6,30 +6,29 @@ export const options = {
     }
 };
 
+
 async function handler(req, res) {
 
-    const id = req.query.id
+    const textSearch = req.query.text
+
 
     if (req.method === "GET") {
 
-        if (!id) {
+        if (!textSearch || textSearch.length === 0) {
             res.status(422).json({ message: "Invalid id." })
             return;
         }
 
-        const urlgetidvedio = `https://online-movie-database.p.rapidapi.com/title/get-videos?tconst=${id}&limit=25&region=US`;
-        try {
-            const responseidvideo = await fetch(urlgetidvedio, options);
-            const resultidvideo = await responseidvideo.json();
-            const idvideo = resultidvideo.resource.videos[0].id.slice(9,)
+        const url = `https://online-movie-database.p.rapidapi.com/auto-complete?q=${textSearch}`;
 
-            const url = `https://online-movie-database.p.rapidapi.com/title/get-video-playback?viconst=${idvideo}`;
+        try {
             const response = await fetch(url, options);
             const result = await response.json();
             res.status(201).json(result)
             return;
         } catch (error) {
             res.status(201).json({ message: "server error. please try again!" })
+            console.log("server error. please try again!")
             return undefined;
         }
 

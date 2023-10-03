@@ -39,6 +39,7 @@ export const Buttonandboxhamburger = styled('div')(() => ({
     display: "flex",
     justifyContent: "end",
     alignItems: "center",
+    width: "100%",
 }));
 
 export const Buttonlogin = styled('button')(() => ({
@@ -73,3 +74,12 @@ export const BoxIconHamburger = styled('div')(() => ({
     borderRadius: "5px",
     backgroundColor: "#f44336",
 }));
+
+export const displayButtonLoginAndSearch = {
+    display: {
+        xs: "none",
+        md: "flex"
+    },
+    justifyContent: "end",
+    alignItems: "center",
+}
