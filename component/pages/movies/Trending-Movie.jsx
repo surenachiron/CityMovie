@@ -38,10 +38,16 @@ const TrendingMovie = ({ movies }) => {
                                 </Box>
                             )) : ""}
                         </Box>
+<<<<<<< HEAD
                     </Box >
                 </>
                 : ""
             }
+=======
+                    )) : ""}
+                </Box>
+            </Box >
+>>>>>>> 4c2422df47b68fb0e03342d6dc15ac632a08dd9f
         </>
     );
 }
