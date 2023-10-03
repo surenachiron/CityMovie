@@ -28,17 +28,25 @@ const MainDetail = ({ movie }) => {
             <BackgroundMovie movie={movie}>
                 <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: "center" }}>
                     <ImageMovie image={movie.title.image.url} title={movie.title.title} />
-                    <Box sx={{ ml: { md: "2rem", xs: "0" }, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "start", width: "100%" }}>
+                    <Box sx={{ ml: { md: "2rem", xs: "0" }, px: { xs: "10px", lg: "0" }, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "start", width: "100%" }}>
                         <Box sx={{ mt: { xs: "1rem", md: "0" } }}>
                             <Typography variant="h4">{movie.title.title}  {" "} <span style={{ opacity: ".8" }}>({movie.title.year})</span></Typography>
                         </Box>
-                        <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "start", alignItems: "center", mt: { xs: "1rem", lg: "5px" } }}>
-                            <span style={{ border: "1px solid gray", borderRadius: "5px", padding: "0 2px", marginRight: "6px", color: "gray" }}>
-                                {movie.certificates ? <>{movie.certificates.US[0] ? movie.certificates.US[0].certificate : ""}</> : ""}
-                            </span>
-                            <Typography variant="body1">
-                                {movie.releaseDate.length !== 0 && movie.releaseDate !== undefined ? <>{movie.releaseDate}</> : ""}
-                            </Typography>
+                        <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "start", alignItems: { lg: "center", xs: "start" }, flexDirection: { xs: "column", md: "row" }, mt: { xs: "1rem", lg: "5px" } }}>
+                            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                {movie.certificates ?
+                                    <>
+                                        {movie.certificates.US[0] ?
+                                            <span style={{ border: "1px solid gray", borderRadius: "5px", padding: "0 2px", marginRight: "6px", color: "gray" }}>
+                                                {movie.certificates.US[0].certificate}
+                                            </span>
+                                            : ""}
+                                    </>
+                                    : ""}
+                                <Typography variant="body1">
+                                    {movie.releaseDate.length !== 0 && movie.releaseDate !== undefined ? <>{movie.releaseDate}</> : ""}
+                                </Typography>
+                            </Box>
                             {movie.genres.length !== 0 && movie.genres !== undefined ?
                                 <Box sx={beforeDot}>
                                     {movie.genres.length >= 4 ?
@@ -51,11 +59,21 @@ const MainDetail = ({ movie }) => {
                                     }
                                 </Box>
                                 : ""}
-                            {movie.title.runningTimeInMinutes ?
-                                <Box sx={beforeDot}>
-                                    <DurationExchange duration={movie.title.runningTimeInMinutes} />
-                                </Box>
-                                : ""}
+                            {movie.title.titleType === "movie" ? <>
+                                {movie.title.runningTimeInMinutes ?
+                                    <Box sx={beforeDot}>
+                                        <DurationExchange duration={movie.title.runningTimeInMinutes} />
+                                    </Box>
+                                    : ""}
+                            </> :
+                                <>
+                                    {movie.title.numberOfEpisodes ?
+                                        <Box sx={beforeDot}>
+                                            <Typography variant='body1'>{movie.title.numberOfEpisodes}<Box component={"span"} sx={{ ml: '5px' }}>Episodes</Box></Typography>
+                                        </Box>
+                                        : ""}
+                                </>
+                            }
                         </Box>
                         <Box sx={{ display: "flex", mt: { xs: "1rem", lg: "2rem" }, alignItems: "center", justifyContent: "center" }}>
                             {movie.ratings.rating ?
@@ -77,7 +95,18 @@ const MainDetail = ({ movie }) => {
                                         <Typography variant="body1" sx={{ mt: "10px", color: "#c8c8c8", fontWeight: "400 !important", }}>{movie.plotSummary.text.split(".")[0]}</Typography>
                                     </Box>
                                 </>
-                                : ""}
+                                :
+                                <>
+                                    {movie.plotOutline ?
+                                        <>
+                                            <Typography variant="h6">Overview</Typography>
+                                            <Box>
+                                                <Typography variant="body1" sx={{ mt: "10px", color: "#c8c8c8", fontWeight: "400 !important", }}>{movie.plotOutline.text.split(".")[0]}</Typography>
+                                            </Box>
+                                        </>
+                                        : ""}
+                                </>
+                            }
                         </Box>
                     </Box>
                 </Box>

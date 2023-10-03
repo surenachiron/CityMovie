@@ -4,7 +4,7 @@ import Image from "next/image";
 const ImageMovie = ({ image, title }) => {
 
     return (
-        <Box sx={{ borderRadius: "20px", position: "relative", display: "block", width: { md: "32%", sm: "50%", xs: "100%" }, height: { lg: "450px", md: "350px", xs: "300px" } }}>
+        <Box sx={{ borderRadius: "20px", position: "relative", display: "block", width: { md: "32%", sm: "50%", xs: "80%" }, height: { lg: "450px", md: "350px", xs: "300px" } }}>
             <Image
                 src={image}
                 alt={title ? title : ""}

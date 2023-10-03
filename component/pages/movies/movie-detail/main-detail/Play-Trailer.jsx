@@ -4,7 +4,7 @@ import { BsPlayFill } from "react-icons/bs";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setTrailer } from "@/redux/reducers/trailermovie";
-import Loading from "@/component/common/_loading";
+import Loading from "@/component/common/Loading";
 import VideoPlayer from "@/utils/videoplayer/VideoPlayer";
 
 const PlayTrailer = ({ image, id }) => {

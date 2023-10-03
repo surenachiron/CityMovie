@@ -12,18 +12,16 @@ const TopCast = ({ casts }) => {
                     WebkitOverflowScrolling: "touch", overflowY: "hidden", overflowX: "scroll", whiteSpace: "normal", boxSizing: "border-box", pb: "10px", display: "flex",
                 }} >
                     {casts.map(cast => (
-                        <>
-                            <Card sx={{ minWidth: 140, width: "140px", mr: "1rem", pb: "10px" }} key={cast.id ? cast.id : cast.name}>
-                                <Link href={cast.id ? `actor/${cast.id.slice(6, -1)}` : ""} >
-                                    <Box sx={{ minWidth: 140, width: "140px", mr: "1rem", pb: "10px" }} >
-                                        <ImageCast image={cast.image ? cast.image.url : undefined} alt={cast.name} />
-                                        <Typography variant="body1" sx={{ fontSize: "1em", px: "10px", pt: "5px" }}>
-                                            {cast.name}
-                                        </Typography>
-                                    </Box >
-                                </Link>
-                            </Card>
-                        </>
+                        <Card sx={{ minWidth: 140, width: "140px", mr: "1rem", pb: "10px" }} key={cast.id ? cast.id : cast.name}>
+                            <Link href={cast.id ? `actor/${cast.id.slice(6, -1)}` : ""} >
+                                <Box sx={{ minWidth: 140, width: "140px", mr: "1rem", pb: "10px" }} >
+                                    <ImageCast image={cast.image ? cast.image.url : undefined} alt={cast.name} />
+                                    <Typography variant="body1" sx={{ fontSize: "1em", px: "10px", pt: "5px" }}>
+                                        {cast.name}
+                                    </Typography>
+                                </Box >
+                            </Link>
+                        </Card>
                     ))}
                 </Box>
             </Box>
