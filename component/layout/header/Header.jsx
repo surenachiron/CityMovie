@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Box, Button, Typography, Grid } from '@mui/material'
@@ -11,11 +11,10 @@ import { setBrowserWidth } from '@/redux/reducers/other'
 
 const Header = () => {
 
-    const paths = [{ address: '/', name: "Home" }, { address: '/movies', name: "Movies" }, { address: '/tv-shows', name: "TV Shows" }]
+    const paths = [{ address: '/', name: "Home" }, { address: '/movies', name: "Movies" }, { address: '/tv-shows', name: "TV Shows" }, { address: '/category', name: "Category" }]
 
     const dispatch = useDispatch()
     const statuInput = useSelector(state => state.SearchReduser.statusInput)
-    const focusInput = useSelector(state => state.SearchReduser.focusInput)
     const browserWidth = useSelector(state => state.Other.browserWidth)
 
     useEffect(() => {
@@ -44,7 +43,7 @@ const Header = () => {
                                         height={20}
                                         sizes="100vw"
                                         priority="true"
-                                        style={{ width: "100%", height: "100%" }}
+                                        style={{ width: "100%", height: "100%", borderRadius: "5px" }}
                                     />
                                 </Boxicon>
                             </Link>
@@ -72,17 +71,17 @@ const Header = () => {
                         <HamburgerMenu />
                     </Grid>
                     <Grid item md={2} lg={2} sx={displayButtonLoginAndSearch}>
-                        <Box sx={{position:"relative", right:"0",width: "100%",display: "flex",justifyContent: "end",alignItems: "center",height: "100%",}}>
-                            {statuInput && browserWidth >= 900 ? 
-                            <Box sx={{position:"absolute", right: {md:"7px",lg:"0"},backdropFilter: "blur(10px)",zIndex:"10"}}>
-                                <SearchIniput />
-                            </Box>
-                            : ""}
+                        <Box sx={{ position: "relative", right: "0", width: "100%", display: "flex", justifyContent: "end", alignItems: "center", height: "100%", }}>
+                            {statuInput && browserWidth >= 900 ?
+                                <Box sx={{ position: "absolute", right: { md: "7px", lg: "0" }, backdropFilter: "blur(10px)", zIndex: "10" }}>
+                                    <SearchIniput />
+                                </Box>
+                                : ""}
                             {statuInput ? "" : <SearchButton />}
-                         </Box>
+                        </Box>
                         <Buttonandboxhamburger>
                             <Button variant='outlined' color='error' sx={{
-                                border: "1px solid white", backgroundColor: "balck", borderRadius: "10px", color: "white",fontSize:{lg:'0.875rem',md:"10px"}
+                                border: "1px solid white", backgroundColor: "balck", borderRadius: "10px", color: "white", fontSize: { lg: '0.875rem', md: "10px" }
                             }}>
                                 Log In
                             </Button>

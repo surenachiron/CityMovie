@@ -12,6 +12,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { HiMiniHome } from 'react-icons/hi2';
 import { RiMovieFill } from 'react-icons/ri';
 import { MdOutlineVideoLibrary } from 'react-icons/md';
+import { TbCategory2 } from 'react-icons/tb';
 
 
 const HamburgerMenu = () => {
@@ -28,10 +29,9 @@ const HamburgerMenu = () => {
         setState(open);
     };
 
-    const paths = [{ address: '/', name: "Home" }, { address: '/movies', name: "Movies" }, { address: '/tv-shows', name: "TV Shows" }]
+    const paths = [{ address: '/', name: "Home" }, { address: '/movies', name: "Movies" }, { address: '/tv-shows', name: "TV Shows" }, { address: '/category', name: "Category" }]
 
     const statuInput = useSelector(state => state.SearchReduser.statusInput)
-    const focusInput = useSelector(state => state.SearchReduser.focusInput)
     const browserWidth = useSelector(state => state.Other.browserWidth)
 
     return (
@@ -91,6 +91,7 @@ const HamburgerMenu = () => {
                                                 {path.name === "Home" ? <HiMiniHome color='#f44336' size="1.3rem" style={{ margin: "-4px 8px 0 0" }} /> : ""}
                                                 {path.name === "Movies" ? <RiMovieFill color='#f44336' size="1.3rem" style={{ margin: "-4px 8px 0 0" }} /> : ""}
                                                 {path.name === "TV Shows" ? <MdOutlineVideoLibrary color='#f44336' size="1.3rem" style={{ margin: "-4px 8px 0 0" }} /> : ""}
+                                                {path.name === "Category" ? <TbCategory2 color='#f44336' size="1.3rem" style={{ margin: "-4px 8px 0 0" }} /> : ""}
                                                 <ListItemText primary={path.name} />
                                             </ListItemButton>
                                         </Link>

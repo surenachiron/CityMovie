@@ -28,9 +28,7 @@ export const Boxicon = styled('div')(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f44336",
     padding: "2px",
-    borderRadius: "5px",
     width: "60%",
     height: "fit-content"
 }));
