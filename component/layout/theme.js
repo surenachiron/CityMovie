@@ -1,19 +1,22 @@
-import { createTheme } from "@mui/material";
+import { createTheme, responsiveFontSizes } from "@mui/material";
+import { red } from "@mui/material/colors";
 
 let theme = createTheme({
     palette: {
         redmain: "#f44336",
-        white: "#ffffff",
-        black: "#000",
+        primary: {
+            main: "#f44336"
+        },
+        secondary: {
+            main: "#000000",
+        },
         mode: 'dark',
+    },
+    status: {
+        danger: red[400],
     },
 });
 
-theme.typography.h4 = {
-    fontSize: "2.2rem",
-    [theme.breakpoints.only('xs')]: {
-        fontSize: '1.4rem',
-    },
-};
+theme = responsiveFontSizes(theme);
 
 export default theme
