@@ -3,7 +3,7 @@ import Loading from "@/component/common/Loading";
 import TopCast from "@/component/pages/movies/movie-detail/cast/Top-Cast";
 import PhotoMovie from "@/component/pages/movies/movie-detail/images/Photo-Movie";
 import MainDetail from "@/component/pages/movies/movie-detail/main-detail/Main-Detail";
-import { getDetails, getCasts, getPhotos, } from "@/lib/getDetailMovieAndSeries";
+import { getCasts, getPhotos, getDetailsMovie, } from "@/lib/getDetailMovieAndSeries";
 import { getIDPapularTvShows } from "@/lib/TvShows/getTvShows";
 import Head from "next/head";
 
@@ -47,9 +47,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const datatvshow = await getDetails(params.id)
-    const photostvshow = await getPhotos(params.id)
-    const caststvshow = await getCasts(params.id)
+    const datatvshow = await getDetailsMovie(params.id)
+    const photostvshow = await new Promise(resolve => setTimeout(() => resolve(getPhotos(params.id)), 1000));
+    const caststvshow = await new Promise(resolve => setTimeout(() => resolve(getCasts(params.id)), 2000));
 
     return {
         props: {

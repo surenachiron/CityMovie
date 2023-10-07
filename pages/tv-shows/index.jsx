@@ -1,15 +1,17 @@
 import Head from "next/head";
-import { getPapularTvShows } from "@/lib/TvShows/getTvShows";
-import { Box } from "@mui/material";
+import { getPapularTvShows, getTopRatedTvShows } from "@/lib/TvShows/getTvShows";
 import CustomError from "@/component/common/CustomError";
 import Loading from "@/component/common/Loading";
 import TrendingTvShows from "@/component/pages/tv-shows/Trending-TvShows";
+import TopRatedTvShows from "@/component/pages/tv-shows/TopRated-TvShows";
 
-const TvShowList = ({ trendTvShows }) => {
+const TvShowList = ({ trendTvShows, topRatedTvShows }) => {
 
-    if (!trendTvShows && trendTvShows !== null) {
+    if ((!trendTvShows && trendTvShows !== null) || (!topRatedTvShows && topRatedTvShows !== null)) {
         return <Loading />
     }
+
+    if (trendTvShows === null && topRatedTvShows === null) return <CustomError />
 
     return (
         <div>
@@ -17,10 +19,11 @@ const TvShowList = ({ trendTvShows }) => {
                 <title>TV-Shows</title>
                 <meta name="description" content="dislpay TVShows of top until last" />
             </Head>
-            {trendTvShows === null ? '' :
-                <Box>
-                    <TrendingTvShows tvShows={trendTvShows} />
-                </Box>
+            {trendTvShows === null || trendTvShows.length <= 1 || trendTvShows.message ? "" :
+                <TrendingTvShows tvShows={trendTvShows} />
+            }
+            {topRatedTvShows === null || topRatedTvShows.length <= 1 || topRatedTvShows.message ? "" :
+                <TopRatedTvShows tvShows={topRatedTvShows} />
             }
         </div>
     );
@@ -28,11 +31,13 @@ const TvShowList = ({ trendTvShows }) => {
 
 export async function getStaticProps() {
 
-    const datatrendTvShows = await getPapularTvShows()
+    const dataTrendTvShows = await getPapularTvShows()
+    const dataTopRatedTvShows = await new Promise(resolve => setTimeout(() => resolve(getTopRatedTvShows()), 1500))
 
     return {
         props: {
-            trendTvShows: datatrendTvShows
+            trendTvShows: dataTrendTvShows,
+            topRatedTvShows: dataTopRatedTvShows
         },
         revalidate: 172800
     }

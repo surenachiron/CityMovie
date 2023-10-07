@@ -5,16 +5,14 @@ import HomeContext from '@/component/pages/home/Home-Context'
 import { getPapularTvShows } from '@/lib/TvShows/getTvShows'
 import { getCommingSoonMovie } from '@/lib/comming-soon/getComingSoon'
 import { getPapularMovies } from '@/lib/movies/getMovies'
+import { getGenresList } from '@/lib/category/getShowLists'
 
-const Home = ({ trendMovies, trendTvShow, commingsoon }) => {
+const Home = ({ commingsoon, trendMovies, trendTvShow, genres }) => {
 
   if ((!commingsoon && commingsoon !== null) || (!trendMovies && trendMovies !== null) || (!trendTvShow && trendTvShow !== null)) {
     return <Loading />
   }
-
   if (trendMovies === null && trendMovies === null && commingsoon === null) return <CustomError />
-
-  console.log(commingsoon)
 
   return (
     <>
@@ -23,8 +21,7 @@ const Home = ({ trendMovies, trendTvShow, commingsoon }) => {
         <meta name="description" content="citymovie a platform for shows trand movie ans series" />
       </Head>
       <div>
-        {/* {trendMovies === null && trendMovies === null && commingsoon === null ? <CustomError /> : ""} */}
-        <HomeContext trendMovies={trendMovies} trendTvShow={trendTvShow} commingSoonMovie={commingsoon} />
+        <HomeContext trendMovies={trendMovies} trendTvShow={trendTvShow} commingSoonMovie={commingsoon} genres={genres} />
       </div>
     </>
   )
@@ -32,15 +29,18 @@ const Home = ({ trendMovies, trendTvShow, commingsoon }) => {
 
 export async function getStaticProps() {
 
-  const datacommingsoon = await getCommingSoonMovie()
-  const datatrendMovies = await getPapularMovies()
-  const datatrendTvShows = await getPapularTvShows()
+  /// we use this approache with setTimeout because we have limit in request to api actually we can 10 request per second 
+  const datacommingsoon = await getCommingSoonMovie();
+  const datatrendMovies = await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 1000));
+  const datatrendTvShows = await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 2000));
+  const imagesGenres = getGenresList()
 
   return {
     props: {
       commingsoon: datacommingsoon,
       trendMovies: datatrendMovies,
       trendTvShow: datatrendTvShows,
+      genres: imagesGenres
     },
     revalidate: 172800
   }

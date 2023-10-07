@@ -17,7 +17,6 @@ const SearchIniput = () => {
     const focusInput = useSelector(state => state.SearchReduser.focusInput)
     const loadingSearch = useSelector(state => state.SearchReduser.loadingSearch)
     const textSearch = useSelector(state => state.SearchReduser.textSearch)
-    const dataSearch = useSelector(state => state.SearchReduser.dataSearch)
 
     useEffect(() => {
         dispatch(setStatusShowResult(0))
@@ -51,8 +50,8 @@ const SearchIniput = () => {
         dispatch(setDataSearch([]))
     }
 
-    async function handleKeyDownInput(e) {
-        if (e.code === "Enter") {
+    async function handleKeyPressInput(e) {
+        if (e.key === 'Enter') {
             const configuration = {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
@@ -76,7 +75,7 @@ const SearchIniput = () => {
         <Box sx={{ width: { md: "300px", xs: "100%" }, position: "relative" }} ref={boxinputsearchref}>
             <ParentInputSearchStyle sx={sxParentInputSearchStyle}>
                 <BoxInputSearchStyle sx={sxBoxInputSearchStyle}>
-                    <Box component={"input"} type="text" sx={inputsearchstyle} placeholder="Search In CityMovie" ref={inputsearchref} onFocus={handleFocusInput} onChange={e => handleChangeTextInput(e)} onKeyDown={(event) => handleKeyDownInput(event)} value={textSearch} />
+                    <Box component={"input"} type="text" sx={inputsearchstyle} placeholder="Search In CityMovie" ref={inputsearchref} onFocus={handleFocusInput} onChange={e => handleChangeTextInput(e)} onKeyPress={(event) => handleKeyPressInput(event)} value={textSearch} />
                     {loadingSearch ? <SimpleLoading width={30} height={30} /> :
                         <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleChangeStatusInput}>
                             <AiOutlineClose size="1.3rem" style={{ cursor: "pointer", margin: "0 5px" }} />
