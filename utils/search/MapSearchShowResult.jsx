@@ -15,45 +15,46 @@ const MapSearchShowResult = ({ id, image, title, year, type }) => {
             case "tvSeries":
                 setOrginalID(`/tv-shows/${id}`)
                 break;
-            case "video":
-                setOrginalID(`/`);
-                break;
-            case "musicVideo":
-                setOrginalID(`/`)
-                break;
-            case undefined:
-                setOrginalID(`/`)
+            case "tvMiniSeries":
+                setOrginalID(`/tv-shows/${id}`);
                 break;
             default:
-                setOrginalID(`/`)
+                setOrginalID("")
                 break;
         }
     }, [id])
 
     return (
-        <Link href={orginalID === "/" ? "" : orginalID} key={id} >
-            <ParentBoxSingleSearch>
-                <Box>
-                    {image ?
-                        <Image
-                            src={image}
-                            alt={title ? title : ""}
-                            width={50}
-                            height={50}
-                            style={{
-                                borderRadius: "50%",
-                            }}
-                            placeholder="blur"
-                            blurDataURL="/images/blur-image.jpg"
-                        />
-                        : ""}
-                </Box>
-                <BoxDetailsSingleSearch>
-                    <Typography variant="body1" sx={{ color: "white" }}>{title ? title : ""}</Typography>
-                    <Typography variant="body2" sx={{ color: "gray" }}>{year ? year : ""}</Typography>
-                </BoxDetailsSingleSearch>
-            </ParentBoxSingleSearch>
-        </Link >
+        <>
+            {orginalID === "" ? "" :
+                <Link href={orginalID} key={id} >
+                    <ParentBoxSingleSearch>
+                        <Box>
+
+                        </Box>
+                        <Box>
+                            {image ?
+                                <Image
+                                    src={image ? image : '/images/blur-image-svg.svg'}
+                                    alt={title ? title : ""}
+                                    width={50}
+                                    height={50}
+                                    style={{
+                                        borderRadius: "50%",
+                                    }}
+                                    placeholder="blur"
+                                    blurDataURL="/images/blur-image.jpg"
+                                />
+                                : ""}
+                        </Box>
+                        <BoxDetailsSingleSearch>
+                            <Typography variant="body1" sx={{ color: "white" }}>{title ? title : ""}</Typography>
+                            <Typography variant="body2" sx={{ color: "gray" }}>{year ? year : ""}</Typography>
+                        </BoxDetailsSingleSearch>
+                    </ParentBoxSingleSearch>
+                </Link >
+            }
+        </>
     );
 }
 

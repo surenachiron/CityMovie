@@ -76,7 +76,8 @@ export const videoplayer = {
     backgroundColor: "black",
     '&:hover': {
         "& .MuiBox-root": {
-            display: 'flex'
+            backgroundColor:"green",
+            display: 'flex',
         }
     },
 }
