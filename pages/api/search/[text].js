@@ -1,16 +1,8 @@
-export const options = {
-    method: 'GET',
-    headers: {
-        'X-RapidAPI-Key': '935d6ef672mshb73110657b46841p1ac8c0jsn74f1d11f6984',
-        'X-RapidAPI-Host': 'online-movie-database.p.rapidapi.com'
-    }
-};
-
+import { options } from "@/lib/confing";
 
 async function handler(req, res) {
 
     const textSearch = req.query.text
-
 
     if (req.method === "GET") {
 
@@ -28,7 +20,6 @@ async function handler(req, res) {
             return;
         } catch (error) {
             res.status(201).json({ message: "server error. please try again!" })
-            console.log("server error. please try again!")
             return undefined;
         }
 

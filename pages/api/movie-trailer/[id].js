@@ -1,10 +1,4 @@
-export const options = {
-    method: 'GET',
-    headers: {
-        'X-RapidAPI-Key': '935d6ef672mshb73110657b46841p1ac8c0jsn74f1d11f6984',
-        'X-RapidAPI-Host': 'online-movie-database.p.rapidapi.com'
-    }
-};
+import { options } from "@/lib/confing";
 
 async function handler(req, res) {
 
@@ -21,7 +15,7 @@ async function handler(req, res) {
         try {
             const responseidvideo = await fetch(urlgetidvedio, options);
             const resultidvideo = await responseidvideo.json();
-            const idvideo = resultidvideo.resource.videos[0].id.slice(9,)
+            const idvideo = resultidvideo.resource.videos.find(vid => vid.contentType === 'Trailer').id.slice(9,)
 
             const url = `https://online-movie-database.p.rapidapi.com/title/get-video-playback?viconst=${idvideo}`;
             const response = await fetch(url, options);
@@ -29,7 +23,6 @@ async function handler(req, res) {
             res.status(201).json(result)
             return;
         } catch (error) {
-            res.status(201).json({ message: "server error. please try again!" })
             return undefined;
         }
 
