@@ -31,8 +31,8 @@ export async function getStaticProps() {
 
   /// we use this approache with setTimeout because we have limit in request to api actually we can 10 request per second 
   const datacommingsoon = await getCommingSoonMovie();
-  const datatrendMovies = await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 1000));
-  const datatrendTvShows = await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 2000));
+  const datatrendMovies = await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 5000));
+  const datatrendTvShows = await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 10000));
   const imagesGenres = getGenresList()
 
   return {

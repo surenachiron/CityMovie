@@ -6,7 +6,6 @@ const SearchShowResult = () => {
 
     const dataSearch = useSelector(state => state.SearchReduser.dataSearch)
     const statusShowResult = useSelector(state => state.SearchReduser.statusShowResult)
-    console.log(dataSearch)
 
     return (
         <>
