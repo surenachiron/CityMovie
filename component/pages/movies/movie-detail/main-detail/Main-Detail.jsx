@@ -1,14 +1,25 @@
 import { useEffect } from 'react'
 import Link from "next/link";
-import ImageMovie from "./Image-Movie";
 import { useDispatch } from 'react-redux';
+import { setTrailer } from '@/redux/reducers/trailermovie';
+import ImageMovie from "./Image-Movie";
 import DurationExchange from "@/utils/DurationExchange";
 import Rating from "@/utils/Rating";
 import PlayTrailer from "./Play-Trailer";
 import BackgroundMovie from "./Background-Movie";
-
 import { Box, Typography } from "@mui/material";
-import { setTrailer } from '@/redux/reducers/trailermovie';
+import { styled } from "@mui/material";
+
+export const BeforeDot = styled('div')(({ theme }) => ({
+    [theme.breakpoints.down("md")]: {
+        display: "flex", justifyContent: "center", alignItems: "center", marginTop: "5px"
+    },
+    [theme.breakpoints.up("md")]: {
+        display: "flex", justifyContent: "center", alignItems: "center", ":before": {
+            fontSize: "1em", lineHeight: '1', content: '"•"', width: "100%", height: "100%", display: "flex", margin: "0 6px"
+        }
+    }
+}));
 
 const MainDetail = ({ movie }) => {
 
@@ -16,12 +27,6 @@ const MainDetail = ({ movie }) => {
     useEffect(() => {
         dispatch(setTrailer([]))
     }, [])
-
-    const beforeDot = {
-        display: "flex", justifyContent: "center", alignItems: "center", ":before": {
-            fontSize: "1em", lineHeight: '1', content: '"•"', width: "100%", height: "100%", display: "flex", mx: "6px"
-        }
-    }
 
     return (
         <>
@@ -48,29 +53,32 @@ const MainDetail = ({ movie }) => {
                                 </Typography>
                             </Box>
                             {movie.genres.length !== 0 && movie.genres !== undefined ?
-                                <Box sx={beforeDot}>
+                                <BeforeDot>
                                     {movie.genres.length >= 4 ?
                                         <>
-                                            {movie.genres.slice(0, 4).map((genre, item) => <Link href={`/genre/${genre}`} key={item}><Typography variant="body1" sx={{ mx: "2px" }}>{genre}{(item + 1) === 4 ? "" : ","}</Typography></Link>)}
+                                            <Typography variant='body1' display={{ xs: "inline", md: "none" }}>Episodes : </Typography>
+                                            {movie.genres.slice(0, 4).map((genre, item) => <Link href={`/category/${genre}`} key={item}><Typography variant="body1" sx={{ mx: "2px" }}>{genre}{(item + 1) === 4 ? "" : ","}</Typography></Link>)}
                                         </> :
                                         <>
-                                            {movie.genres.map((genre, item) => <Link href={`/genre/${genre}`} key={item}><Typography variant="body1" sx={{ mx: "2px" }}>{genre}{(item + 1) === movie.genres.length ? "" : ","}</Typography></Link>)}
+                                            <Typography variant='body1' display={{ xs: "inline", md: "none" }}>Genres : </Typography>
+                                            {movie.genres.map((genre, item) => <Link href={`/category/${genre}`} key={item}><Typography variant="body1" sx={{ mx: "2px" }}>{genre}{(item + 1) === movie.genres.length ? "" : ","}</Typography></Link>)}
                                         </>
                                     }
-                                </Box>
+                                </BeforeDot>
                                 : ""}
                             {movie.title.titleType === "movie" ? <>
                                 {movie.title.runningTimeInMinutes ?
-                                    <Box sx={beforeDot}>
+                                    <BeforeDot>
                                         <DurationExchange duration={movie.title.runningTimeInMinutes} />
-                                    </Box>
+                                    </BeforeDot>
                                     : ""}
                             </> :
                                 <>
                                     {movie.title.numberOfEpisodes ?
-                                        <Box sx={beforeDot}>
-                                            <Typography variant='body1'>{movie.title.numberOfEpisodes}<Box component={"span"} sx={{ ml: '5px' }}>Episodes</Box></Typography>
-                                        </Box>
+                                        <BeforeDot>
+                                            <Typography variant='body1' display={{ xs: "inline", md: "none" }} sx={{ mr: '5px' }}>Episodes : </Typography>
+                                            <Typography variant='body1'>{movie.title.numberOfEpisodes}<Box component={"span"} sx={{ ml: '5px', display: { xs: "none", md: "inline" } }}>Episodes</Box></Typography>
+                                        </BeforeDot>
                                         : ""}
                                 </>
                             }
@@ -80,8 +88,8 @@ const MainDetail = ({ movie }) => {
                                 <Box sx={{ display: 'flex', mr: "1rem" }}>
                                     <Rating rate={movie.ratings.rating * 10} />
                                     <Box sx={{ ml: "10px" }}>
-                                        <Typography variant="body1">َUser</Typography>
-                                        <Typography variant="body1">Score</Typography>
+                                        <Typography variant="body2">User</Typography>
+                                        <Typography variant="body2">Score</Typography>
                                     </Box>
                                 </Box>
                                 : ""}
@@ -92,7 +100,7 @@ const MainDetail = ({ movie }) => {
                                 <>
                                     <Typography variant="h6">Overview</Typography>
                                     <Box>
-                                        <Typography variant="body1" sx={{ mt: "10px", color: "#c8c8c8", fontWeight: "400 !important", }}>{movie.plotSummary.text.split(".")[0]}</Typography>
+                                        <Typography variant="body1" sx={{ mt: "10px", color: "#c8c8c8", fontWeight: "400 !important", }}>{movie.plotSummary.text.split(".")[0].length >= 30 ? movie.plotSummary.text.split(".")[0] : <>{movie.plotSummary.text.split(".")[1] ? movie.plotSummary.text.split(".")[1] : ""}</>}</Typography>
                                     </Box>
                                 </>
                                 :
@@ -101,7 +109,7 @@ const MainDetail = ({ movie }) => {
                                         <>
                                             <Typography variant="h6">Overview</Typography>
                                             <Box>
-                                                <Typography variant="body1" sx={{ mt: "10px", color: "#c8c8c8", fontWeight: "400 !important", }}>{movie.plotOutline.text.split(".")[0]}</Typography>
+                                                <Typography variant="body1" sx={{ mt: "10px", color: "#c8c8c8", fontWeight: "400 !important", }}>{movie.plotOutline.text.split(".")[0].length >= 30 ? movie.plotOutline.text.split(".")[0] : <>{movie.plotOutline.text.split(".")[1] ? movie.plotOutline.text.split(".")[1] : ""}</>}</Typography>
                                             </Box>
                                         </>
                                         : ""}

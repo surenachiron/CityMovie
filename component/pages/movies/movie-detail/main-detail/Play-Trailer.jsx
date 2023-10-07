@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { BsPlayFill } from "react-icons/bs";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setTrailer } from "@/redux/reducers/trailermovie";
 import Loading from "@/component/common/Loading";
 import VideoPlayer from "@/utils/videoplayer/VideoPlayer";
@@ -12,8 +13,30 @@ const PlayTrailer = ({ image, id }) => {
     const dispatch = useDispatch()
     const loadingTrailer = useSelector(state => state.TrailerMovie.loading)
     const trailer = useSelector(state => state.TrailerMovie.trailer)
+    const router = useRouter()
 
+    const [open, setOpen] = useState(false);
     const orginalId = id.slice(7, -1)
+
+    const handleOpen = async () => {
+        setOpen(true)
+        const configuration = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        }
+        if ((trailer.length === 0 || trailer === undefined) || router.query.length === 0) {
+            dispatch(setLoading(true))
+            await fetch(`/api/movie-trailer/${orginalId}`, configuration)
+                .then((response) => response.json())
+                .then((data) => {
+                    dispatch(setTrailer(data))
+                    dispatch(setLoading(false))
+                })
+                .catch((error) => dispatch(setLoading(false)))
+            dispatch(setLoading(false))
+        }
+    };
+    const handleClose = () => setOpen(false);
 
     const style = {
         position: 'absolute',
@@ -29,32 +52,12 @@ const PlayTrailer = ({ image, id }) => {
         p: { lg: 4, xs: 2 },
     };
 
-    const [open, setOpen] = useState(false);
-    const handleOpen = async () => {
-        setOpen(true)
-        const configuration = {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-        }
-
-        if (trailer.length === 0 || trailer === undefined) {
-            dispatch(setLoading(true))
-            await fetch(`/api/movie-trailer/${orginalId}`, configuration)
-                .then((response) => response.json())
-                .then((data) => {
-                    dispatch(setTrailer(data))
-                })
-            dispatch(setLoading(false))
-        }
-    };
-    const handleClose = () => setOpen(false);
-
     return (
         <Box>
 
             <Button variant="text" color="inherit" onClick={handleOpen} sx={{ border: "1px solid #3e3e3e" }} >
                 <BsPlayFill size={"1.8rem"} color="red" />
-                Play Trailer
+                Trailer
             </Button>
             <>
                 <Modal
@@ -66,8 +69,8 @@ const PlayTrailer = ({ image, id }) => {
                 >
                     <Box sx={style}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                Play Trailer
+                            <Typography id="modal-modal-title" variant="h5" component="h4">
+                                Trailer
                             </Typography>
                             <Button variant="text" color="inherit" sx={{ width: "fit-content", minWidth: "auto", p: "0" }} onClick={handleClose}>
                                 <AiOutlineCloseCircle size={"1.5rem"} color="gray" />
@@ -85,8 +88,6 @@ const PlayTrailer = ({ image, id }) => {
                                         : "sory! we cant find any trailer for this movie"}
                                 </>
                             }
-                            {/* <VideoPlayer
-                                url="https://assets.mixkit.co/videos/preview/mixkit-going-down-a-curved-highway-through-a-mountain-range-41576-small.mp4" poster={image} /> */}
                         </Box>
                     </Box>
                 </Modal>

@@ -1,29 +1,24 @@
 import { Box } from "@mui/material";
 import TrendingMovie from "../movies/Trending-Movie";
-import CustomError from "@/component/common/CustomError";
 import TrendingTvShows from "../tv-shows/Trending-TvShows";
-import SliderTranding from "./papulars/SliderTranding";
+import SliderComminSoon from "./commingsoon/SliderComminSoon";
+import PreviewGenresHome from "./genres/PreviewGenresHome";
 
 const HomeContext = ({ trendMovies, trendTvShow, commingSoonMovie, genres, toprateMovie, toprateSeries }) => {
-
-    console.log(trendMovies, trendTvShow, commingSoonMovie)
 
     return (
         <div>
             <Box>
                 {commingSoonMovie === null ? "" :
-                    <SliderTranding commingSoonMovie={commingSoonMovie} />
+                    <SliderComminSoon commingSoonMovie={commingSoonMovie} />
                 }
-                {trendMovies === null ? "" :
-                    <Box sx={{ my: "1rem" }}>
-                        <TrendingMovie movies={trendMovies} />
-                    </Box>
+                {trendMovies === null || trendMovies.length <= 1 || trendMovies.message ? "" :
+                    <TrendingMovie movies={trendMovies} />
                 }
-                {trendTvShow === null ? "" :
-                    <Box sx={{ my: "1rem" }}>
-                        <TrendingTvShows tvShows={trendTvShow} />
-                    </Box>
+                {trendTvShow === null || trendTvShow.length <= 1 || trendTvShow.message ? "" :
+                    <TrendingTvShows tvShows={trendTvShow} />
                 }
+                <PreviewGenresHome genres={genres} />
             </Box>
         </div>
     );

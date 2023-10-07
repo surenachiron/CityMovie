@@ -3,6 +3,7 @@ import { styled } from "@mui/material";
 export const HoverImage = styled('div')(() => ({
     width: "130px",
     height: "240px",
+    borderRadius: "10px",
     zIndex: "10",
     border: "0px solid #535050",
     position: "absolute",

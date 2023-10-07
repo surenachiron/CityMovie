@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
 import Image from "next/image";
+import { Box } from "@mui/material";
 
 const ImageCast = ({ image, alt }) => {
     return (

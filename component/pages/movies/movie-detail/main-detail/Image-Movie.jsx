@@ -1,12 +1,12 @@
-import { Box } from "@mui/material";
 import Image from "next/image";
+import { Box } from "@mui/material";
 
 const ImageMovie = ({ image, title }) => {
 
     return (
-        <Box sx={{ borderRadius: "20px", position: "relative", display: "block", width: { md: "32%", sm: "50%", xs: "80%" }, height: { lg: "450px", md: "350px", xs: "300px" } }}>
+        <Box sx={{ borderRadius: "20px", position: "relative", display: "block", width: { lg: "32%", md: "45%", sm: "50%", xs: "60%" }, height: { lg: "425px", xs: "350px" } }}>
             <Image
-                src={image}
+                src={image ? image : "/images/blur-image-svg.svg"}
                 alt={title ? title : ""}
                 sizes="100vw"
                 style={{
