@@ -29,7 +29,7 @@ const Home = ({ commingsoon, trendMovies, trendTvShow, genres }) => {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
   /// we use this approache with setTimeout because we have limit in request to api actually we can 10 request per second 
   const [datacommingsoon, datatrendMovies, datatrendTvShows] = await Promise.all([
@@ -45,8 +45,7 @@ export async function getStaticProps() {
       trendMovies: datatrendMovies,
       trendTvShow: datatrendTvShows,
       genres: imagesGenres
-    },
-    revalidate: 172800
+    }
   }
 }
 
