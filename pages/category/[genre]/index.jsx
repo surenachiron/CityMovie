@@ -31,7 +31,7 @@ const SingleCategory = ({ categorymovie }) => {
 
 export async function getServerSideProps({ params }) {
 
-    const datacategorymovie = await getCategoryMovies(params.genre)
+    const datacategorymovie = await new Promise(resolve => setTimeout(() => resolve(getCategoryMovies(params.genre)), 5000));
 
     return {
         props: {

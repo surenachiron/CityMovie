@@ -34,8 +34,8 @@ const ListMovies = ({ trendingmovies, topratedmovies }) => {
 
 export async function getStaticProps() {
 
-   const dataTrendingMovie = await getPapularMovies()
-   const dataTopRatedMovie = await new Promise(resolve => setTimeout(() => resolve(getTopRatedMovies()), 5000))
+   const dataTrendingMovie = await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 5000))
+   const dataTopRatedMovie = await new Promise(resolve => setTimeout(() => resolve(getTopRatedMovies()), 10000))
 
 
    return {

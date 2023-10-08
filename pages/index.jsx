@@ -30,9 +30,9 @@ const Home = ({ commingsoon, trendMovies, trendTvShow, genres }) => {
 export async function getStaticProps() {
 
   /// we use this approache with setTimeout because we have limit in request to api actually we can 10 request per second 
-  const datacommingsoon = await getCommingSoonMovie();
-  const datatrendMovies = await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 5000));
-  const datatrendTvShows = await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 10000));
+  const datacommingsoon = await new Promise(resolve => setTimeout(() => resolve(getCommingSoonMovie()), 5000));
+  const datatrendMovies = await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 10000));
+  const datatrendTvShows = await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 15000));
   const imagesGenres = getGenresList()
 
   return {
