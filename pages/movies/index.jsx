@@ -35,11 +35,10 @@ const ListMovies = ({ trendingmovies, topratedmovies }) => {
 }
 
 export async function getStaticProps() {
-
-   const dataTrendingMovie = await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 2000))
-   const dataTopRatedMovie = await new Promise(resolve => setTimeout(() => resolve(getTopRatedMovies()), 4000))
-
-
+   const [dataTrendingMovie, dataTopRatedMovie] = await Promise.all([
+      await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 3000)),
+      await new Promise(resolve => setTimeout(() => resolve(getTopRatedMovies()), 6000)),
+    ]);
    return {
       props: {
          trendingmovies: dataTrendingMovie,
