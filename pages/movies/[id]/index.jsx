@@ -32,10 +32,10 @@ const SingleMovie = ({ movie, casts, photos }) => {
 
 export async function getStaticPaths() {
 
-    const AllKeyMovies = await getIDPapularMovies()
+    const AllKeyMovies = await new Promise(resolve => setTimeout(() => resolve(getIDPapularMovies()), 5000))
 
     if (AllKeyMovies === null) {
-        return null;
+        return { paths: [], fallback: false }
     } else {
         const pathsMovie = AllKeyMovies.slice(0, 3).map((id) => ({
             params: { id },

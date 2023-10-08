@@ -35,7 +35,7 @@ export async function getStaticPaths() {
     const AllKeyTvShow = await getIDPapularTvShows()
 
     if (AllKeyTvShow === null) {
-        return;
+        return { paths: [], fallback: false }
     } else {
         const pathsTvShow = AllKeyTvShow.slice(0, 3).map((id) => ({
             params: { id },
