@@ -6,10 +6,11 @@ const SearchShowResult = () => {
 
     const dataSearch = useSelector(state => state.SearchReduser.dataSearch)
     const statusShowResult = useSelector(state => state.SearchReduser.statusShowResult)
+    console.log(dataSearch)
 
     return (
         <>
-            {dataSearch.length !== 0 ?
+            {dataSearch.length > 1 ?
                 <MainBox>
                     {dataSearch.d.length !== 0 ?
                         <>
@@ -39,6 +40,12 @@ const SearchShowResult = () => {
                             </BoxStatus>
                         </MainBox>
                         : ""}
+                    {dataSearch.message !== undefined ?
+                        <MainBox>
+                            <BoxStatus sx={{ color: "redmain" }}>
+                                We Get Error From Database
+                            </BoxStatus>
+                        </MainBox> : ""}
                 </>
             }
         </>

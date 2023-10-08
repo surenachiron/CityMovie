@@ -32,7 +32,7 @@ const SingleMovie = ({ movie, casts, photos }) => {
 
 export async function getStaticPaths() {
 
-    const AllKeyMovies = await new Promise(resolve => setTimeout(() => resolve(getIDPapularMovies()), 5000))
+    const AllKeyMovies = await getIDPapularMovies()
 
     if (AllKeyMovies === null) {
         return { paths: [], fallback: false }
