@@ -9,6 +9,8 @@ import { getGenresList } from '@/lib/category/getShowLists'
 
 const Home = ({ commingsoon, trendMovies, trendTvShow, genres }) => {
 
+  console.log(commingsoon, trendMovies, trendTvShow)
+
   if ((!commingsoon && commingsoon !== null) || (!trendMovies && trendMovies !== null) || (!trendTvShow && trendTvShow !== null)) {
     return <Loading />
   }

@@ -32,7 +32,7 @@ const SingleMovie = ({ movie, casts, photos }) => {
 
 export async function getStaticPaths() {
 
-    const AllKeyMovies = await getIDPapularMovies()
+    // const AllKeyMovies = await getIDPapularMovies()
 
     if (AllKeyMovies === null) {
         return { paths: [], fallback: false }
