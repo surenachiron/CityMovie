@@ -48,11 +48,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-
-    const datamovie = await new Promise(resolve => setTimeout(() => resolve(getDetailsMovie(params.id)), 2000))
-    const photosmovie = await new Promise(resolve => setTimeout(() => resolve(getPhotos(params.id)), 4000));
-    const castsmovie = await new Promise(resolve => setTimeout(() => resolve(getCasts(params.id)), 6000));
-
+    const [datamovie, photosmovie,castsmovie] = await Promise.all([
+       await new Promise(resolve => setTimeout(() => resolve(getDetailsMovie(params.id)), 3000)),
+       await new Promise(resolve => setTimeout(() => resolve(getPhotos(params.id)), 6000)),
+       await new Promise(resolve => setTimeout(() => resolve(getCasts(params.id)), 9000))
+    ]);
     return {
         props: {
             movie: datamovie,
