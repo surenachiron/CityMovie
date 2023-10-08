@@ -9,6 +9,8 @@ import Head from "next/head";
 
 const SingleTvShow = ({ tvshow, casts, photos }) => {
 
+    console.log(tvshow, casts, photos)
+
     if (!tvshow && tvshow !== null) {
         return <Loading />
     }
@@ -47,9 +49,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const datatvshow = await new Promise(resolve => setTimeout(() => resolve(getDetailsMovie(params.id)), 5000)); 
-    const photostvshow = await new Promise(resolve => setTimeout(() => resolve(getPhotos(params.id)), 10000));
-    const caststvshow = await new Promise(resolve => setTimeout(() => resolve(getCasts(params.id)), 15000));
+    const datatvshow = await new Promise(resolve => setTimeout(() => resolve(getDetailsMovie(params.id)), 2000)); 
+    const photostvshow = await new Promise(resolve => setTimeout(() => resolve(getPhotos(params.id)), 4000));
+    const caststvshow = await new Promise(resolve => setTimeout(() => resolve(getCasts(params.id)), 6000));
 
     return {
         props: {

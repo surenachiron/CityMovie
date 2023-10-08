@@ -8,6 +8,8 @@ import { Box } from "@mui/material";
 
 const ListMovies = ({ trendingmovies, topratedmovies }) => {
 
+   console.log(trendingmovies, topratedmovies)
+
    if ((!trendingmovies && trendingmovies !== null) || (!topratedmovies && topratedmovies !== null)) {
       return <Loading />
    }
@@ -34,8 +36,8 @@ const ListMovies = ({ trendingmovies, topratedmovies }) => {
 
 export async function getStaticProps() {
 
-   const dataTrendingMovie = await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 5000))
-   const dataTopRatedMovie = await new Promise(resolve => setTimeout(() => resolve(getTopRatedMovies()), 10000))
+   const dataTrendingMovie = await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 2000))
+   const dataTopRatedMovie = await new Promise(resolve => setTimeout(() => resolve(getTopRatedMovies()), 4000))
 
 
    return {

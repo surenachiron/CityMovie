@@ -7,6 +7,8 @@ import TrendingGenres from "@/component/pages/category/Trending-Genres"
 
 const SingleCategory = ({ categorymovie }) => {
 
+    console.log(categorymovie)
+
     if (!categorymovie && categorymovie !== null) {
         return <Loading />
     }

@@ -7,6 +7,8 @@ import TopRatedTvShows from "@/component/pages/tv-shows/TopRated-TvShows";
 
 const TvShowList = ({ trendTvShows, topRatedTvShows }) => {
 
+    console.log(trendTvShows, topRatedTvShows)
+
     if ((!trendTvShows && trendTvShows !== null) || (!topRatedTvShows && topRatedTvShows !== null)) {
         return <Loading />
     }
@@ -31,8 +33,8 @@ const TvShowList = ({ trendTvShows, topRatedTvShows }) => {
 
 export async function getStaticProps() {
 
-    const dataTrendTvShows = await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 5000))
-    const dataTopRatedTvShows = await new Promise(resolve => setTimeout(() => resolve(getTopRatedTvShows()), 10000))
+    const dataTrendTvShows = await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 2000))
+    const dataTopRatedTvShows = await new Promise(resolve => setTimeout(() => resolve(getTopRatedTvShows()), 4000))
 
     return {
         props: {
