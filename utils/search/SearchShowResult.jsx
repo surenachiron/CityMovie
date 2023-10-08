@@ -10,7 +10,7 @@ const SearchShowResult = () => {
 
     return (
         <>
-            {dataSearch.length > 1 ?
+            {dataSearch.d !== undefined ?
                 <MainBox>
                     {dataSearch.d.length !== 0 ?
                         <>
