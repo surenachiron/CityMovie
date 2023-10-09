@@ -36,15 +36,9 @@ export async function getServerSideProps() {
   //   await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 6000)),
   // ]);
   const [datacommingsoon, datatrendMovies, datatrendTvShows] = await Promise.all([
-<<<<<<< HEAD
-    await new Promise(resolve => resolve(getCommingSoonMovie())),
-    await new Promise(resolve => resolve(getPapularMovies())),
-    await new Promise(resolve => resolve(getPapularTvShows())),
-=======
-    await new Promise(resolve => getCommingSoonMovie()),
-    await new Promise(resolve => getPapularMovies()),
-    await new Promise(resolve => getPapularTvShows()),
->>>>>>> 65f60526d394df81a8e02b5a2ade7d49921e957e
+    await new Promise(resolve => setTimeout(() => resolve(getCommingSoonMovie()), 1000)),
+    await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 1000)),
+    await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 1000)),
   ]);
   const imagesGenres = getGenresList()
 
