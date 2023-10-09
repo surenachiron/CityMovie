@@ -32,9 +32,9 @@ const SingleTvShow = ({ tvshow, casts, photos }) => {
 export async function getServerSideProps({ params }) {
 
     const [datatvshow, photostvshow, caststvshow] = await Promise.all([
-        await new Promise(resolve => resolve(getDetailsMovie(params.id))),
-        await new Promise(resolve => resolve(getPhotos(params.id))),
-        await new Promise(resolve => resolve(getCasts(params.id)))
+        await new Promise(resolve => setTimeout(() => resolve(getDetailsMovie(params.id)), 1000)),
+        await new Promise(resolve => setTimeout(() => resolve(getPhotos(params.id)), 2000)),
+        await new Promise(resolve => setTimeout(() => resolve(getCasts(params.id)), 3000))
     ]);
     return {
         props: {

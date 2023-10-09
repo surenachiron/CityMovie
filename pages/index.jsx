@@ -27,19 +27,15 @@ const Home = ({ commingsoon, trendMovies, trendTvShow, genres }) => {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
 
   /// we use this approache with setTimeout because we have limit in request to api actually we can 10 request per second 
-  // const [datacommingsoon, datatrendMovies, datatrendTvShows] = await Promise.all([
-  //   await new Promise(resolve => setTimeout(() => resolve(getCommingSoonMovie()), 2000)),
-  //   await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 4000)),
-  //   await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 6000)),
-  // ]);
   const [datacommingsoon, datatrendMovies, datatrendTvShows] = await Promise.all([
-    await new Promise(resolve => setTimeout(() => resolve(getCommingSoonMovie()), 1000)),
-    await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 3000)),
-    await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 5000)),
+    await new Promise(resolve => setTimeout(() => resolve(getCommingSoonMovie()), 2000)),
+    await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 4000)),
+    await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 6000)),
   ]);
+
   const imagesGenres = getGenresList()
 
   return {
