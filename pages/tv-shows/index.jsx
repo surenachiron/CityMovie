@@ -34,8 +34,8 @@ const TvShowList = ({ trendTvShows, topRatedTvShows }) => {
 export async function getServerSideProps() {
 
     const [dataTrendTvShows, dataTopRatedTvShows] = await Promise.all([
-        await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 3000)),
-        await new Promise(resolve => setTimeout(() => resolve(getTopRatedTvShows()), 6000)),
+        await new Promise(resolve => resolve(getPapularTvShows())),
+        await new Promise(resolve => resolve(getTopRatedTvShows())),
     ]);
 
     return {
