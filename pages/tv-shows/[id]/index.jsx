@@ -4,12 +4,9 @@ import TopCast from "@/component/pages/movies/movie-detail/cast/Top-Cast";
 import PhotoMovie from "@/component/pages/movies/movie-detail/images/Photo-Movie";
 import MainDetail from "@/component/pages/movies/movie-detail/main-detail/Main-Detail";
 import { getCasts, getPhotos, getDetailsMovie, } from "@/lib/getDetailMovieAndSeries";
-import { getIDPapularTvShows } from "@/lib/TvShows/getTvShows";
 import Head from "next/head";
 
 const SingleTvShow = ({ tvshow, casts, photos }) => {
-
-    console.log(tvshow, casts, photos)
 
     if (!tvshow && tvshow !== null) {
         return <Loading />
@@ -32,23 +29,9 @@ const SingleTvShow = ({ tvshow, casts, photos }) => {
     );
 }
 
-export async function getStaticPaths() {
+export async function getServerSideProps({ params }) {
 
-    const AllKeyTvShow = await getIDPapularTvShows()
-
-    if (AllKeyTvShow === null) {
-        return { paths: [], fallback: false }
-    } else {
-        const pathsTvShow = AllKeyTvShow.slice(0, 3).map((id) => ({
-            params: { id },
-        }))
-        return { paths: pathsTvShow, fallback: true }
-    }
-
-}
-
-export async function getStaticProps({ params }) {
-    const [datatvshow, photostvshow,caststvshow] = await Promise.all([
+    const [datatvshow, photostvshow, caststvshow] = await Promise.all([
         await new Promise(resolve => setTimeout(() => resolve(getDetailsMovie(params.id)), 3000)),
         await new Promise(resolve => setTimeout(() => resolve(getPhotos(params.id)), 6000)),
         await new Promise(resolve => setTimeout(() => resolve(getCasts(params.id)), 9000))
@@ -58,8 +41,7 @@ export async function getStaticProps({ params }) {
             tvshow: datatvshow,
             photos: photostvshow,
             casts: caststvshow,
-        },
-        revalidate: 172800
+        }
     }
 }
 

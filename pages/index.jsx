@@ -9,8 +9,6 @@ import { getGenresList } from '@/lib/category/getShowLists'
 
 const Home = ({ commingsoon, trendMovies, trendTvShow, genres }) => {
 
-  console.log(commingsoon, trendMovies, trendTvShow)
-
   if ((!commingsoon && commingsoon !== null) || (!trendMovies && trendMovies !== null) || (!trendTvShow && trendTvShow !== null)) {
     return <Loading />
   }
@@ -33,9 +31,9 @@ export async function getServerSideProps() {
 
   /// we use this approache with setTimeout because we have limit in request to api actually we can 10 request per second 
   const [datacommingsoon, datatrendMovies, datatrendTvShows] = await Promise.all([
-    await new Promise(resolve => setTimeout(() => resolve(getCommingSoonMovie()), 1000)),
-    await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 1000)),
-    await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 1000)),
+    await new Promise(resolve => setTimeout(() => resolve(getCommingSoonMovie()), 2000)),
+    await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 4000)),
+    await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 6000)),
   ]);
   const imagesGenres = getGenresList()
 

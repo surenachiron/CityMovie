@@ -24,7 +24,7 @@ const PlayTrailer = ({ image, id }) => {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         }
-        if ((trailer.length === 0 || trailer === undefined) || router.query.length === 0) {
+        if ((trailer.length === 0 || trailer === undefined) || router.query.length === undefined) {
             dispatch(setLoading(true))
             await fetch(`/api/movie-trailer/${orginalId}`, configuration)
                 .then((response) => response.json())
@@ -76,7 +76,7 @@ const PlayTrailer = ({ image, id }) => {
                                 <AiOutlineCloseCircle size={"1.5rem"} color="gray" />
                             </Button>
                         </Box>
-                        <Box sx={{ width: "100%", height: { md: "350px", sm: "280px", xs: "200px" }, my: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Box sx={{ width: "100%", height: { md: "350px", sm: "280px", xs: "250px" }, my: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                             {loadingTrailer ? <Loading shadow={true} /> :
                                 <>
                                     {trailer.resource ?

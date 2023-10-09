@@ -14,7 +14,7 @@ const PageCategory = ({ genres }) => {
     );
 }
 
-export async function getServerSideProps() {
+export async function getStaticPaths() {
     const imagesGenres = getGenresList()
 
     return {
