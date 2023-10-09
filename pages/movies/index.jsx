@@ -32,7 +32,7 @@ const ListMovies = ({ trendingmovies, topratedmovies }) => {
    );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
    const [dataTrendingMovie, dataTopRatedMovie] = await Promise.all([
       await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 2000)),

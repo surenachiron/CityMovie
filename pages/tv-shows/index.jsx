@@ -31,7 +31,7 @@ const TvShowList = ({ trendTvShows, topRatedTvShows }) => {
     );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
     const [dataTrendTvShows, dataTopRatedTvShows] = await Promise.all([
         await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 2000)),
@@ -42,8 +42,7 @@ export async function getStaticProps() {
         props: {
             trendTvShows: dataTrendTvShows,
             topRatedTvShows: dataTopRatedTvShows
-        },
-        revalidate: 6000
+        }
     }
 }
 
