@@ -1,42 +1,40 @@
-import { Box, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BoxDetailsSingleSearch, ParentBoxSingleSearch } from "./styled-search";
-import { useEffect, useState } from "react";
+
+import { classesMapSearchShowResult } from "./Style-Search";
+import { Box, Typography } from "@mui/material";
 
 const MapSearchShowResult = ({ id, image, title, year, type }) => {
 
-    const [orginalID, setOrginalID] = useState("")
+    const [originalID, setOriginalID] = useState("")
     useEffect(() => {
         switch (type) {
             case "movie":
-                setOrginalID(`/movies/${id}`);
+                setOriginalID(`/movies/${id}`);
                 break;
             case "tvSeries":
-                setOrginalID(`/tv-shows/${id}`)
+                setOriginalID(`/tv-shows/${id}`)
                 break;
             case "tvMiniSeries":
-                setOrginalID(`/tv-shows/${id}`);
+                setOriginalID(`/tv-shows/${id}`);
                 break;
             default:
-                setOrginalID("")
+                setOriginalID("")
                 break;
         }
     }, [id])
 
     return (
         <>
-            {orginalID === "" ? "" :
-                <Link href={orginalID} key={id} >
-                    <ParentBoxSingleSearch>
+            {originalID !== "" &&
+                <Link href={originalID} key={id} >
+                    <Box sx={classesMapSearchShowResult.boxParentBoxSingleSearch}>
                         <Box>
-
-                        </Box>
-                        <Box>
-                            {image ?
+                            {image &&
                                 <Image
                                     src={image ? image : '/images/blur-image-svg.svg'}
-                                    alt={title ? title : ""}
+                                    alt={title ? title : "image"}
                                     width={50}
                                     height={50}
                                     style={{
@@ -45,13 +43,13 @@ const MapSearchShowResult = ({ id, image, title, year, type }) => {
                                     placeholder="blur"
                                     blurDataURL="/images/blur-image.jpg"
                                 />
-                                : ""}
+                            }
                         </Box>
-                        <BoxDetailsSingleSearch>
-                            <Typography variant="body1" sx={{ color: "white" }}>{title ? title : ""}</Typography>
-                            <Typography variant="body2" sx={{ color: "gray" }}>{year ? year : ""}</Typography>
-                        </BoxDetailsSingleSearch>
-                    </ParentBoxSingleSearch>
+                        <Box sx={classesMapSearchShowResult.boxDetailsSingleSearch}>
+                            <Typography variant="body1" sx={classesMapSearchShowResult.spanTitle}>{title && title}</Typography>
+                            <Typography variant="body2" sx={classesMapSearchShowResult.spanYear}>{year && year}</Typography>
+                        </Box>
+                    </Box>
                 </Link >
             }
         </>

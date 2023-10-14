@@ -1,11 +1,12 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
+
 import { getDetailsMovie, getCasts, getPhotos, } from "@/lib/getDetailMovieAndSeries";
-import { getIDPapularMovies } from "@/lib/movies/getMovies";
-import MainDetail from "@/component/pages/movies/movie-detail/main-detail/Main-Detail";
-import TopCast from "@/component/pages/movies/movie-detail/cast/Top-Cast";
-import CustomError from "@/component/common/CustomError";
-import Loading from "@/component/common/Loading";
-import PhotoMovie from "@/component/pages/movies/movie-detail/images/Photo-Movie";
+const MainDetail = dynamic(() => import("@/component/pages/movies/movie-detail/main-detail/Main-Detail"));
+const TopCast = dynamic(() => import("@/component/pages/movies/movie-detail/cast/Top-Cast"));
+const CustomError = dynamic(() => import("@/component/common/CustomError"));
+const Loading = dynamic(() => import("@/component/common/Loading"));
+const PhotoMovie = dynamic(() => import("@/component/pages/movies/movie-detail/images/Photo-Movie"));
 
 const SingleMovie = ({ movie, casts, photos }) => {
 
@@ -23,8 +24,8 @@ const SingleMovie = ({ movie, casts, photos }) => {
             </Head>
             <section>
                 <MainDetail movie={movie} />
-                {photos !== null ? <PhotoMovie photos={photos.images} /> : ""}
-                {casts !== null ? <TopCast casts={casts} /> : ""}
+                {photos !== null && <PhotoMovie photos={photos.images} />}
+                {casts !== null && <TopCast casts={casts} />}
             </section>
         </>
     );
@@ -32,16 +33,16 @@ const SingleMovie = ({ movie, casts, photos }) => {
 
 export async function getServerSideProps({ params }) {
 
-    const [datamovie, photosmovie, castsmovie] = await Promise.all([
+    const [dataMovie, photosMovie, castsMovie] = await Promise.all([
         await new Promise(resolve => setTimeout(() => resolve(getDetailsMovie(params.id)), 1000)),
         await new Promise(resolve => setTimeout(() => resolve(getPhotos(params.id)), 2000)),
         await new Promise(resolve => setTimeout(() => resolve(getCasts(params.id)), 3000))
     ]);
     return {
         props: {
-            movie: datamovie,
-            photos: photosmovie,
-            casts: castsmovie,
+            movie: dataMovie,
+            photos: photosMovie,
+            casts: castsMovie,
         }
     }
 }

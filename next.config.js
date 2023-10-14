@@ -4,10 +4,12 @@ const nextConfig = {
   images: {
     domains: [
       "m.media-amazon.com",
-      "www.psdstack.com",
     ]
   }
-
 }
+
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// })
 
 module.exports = nextConfig

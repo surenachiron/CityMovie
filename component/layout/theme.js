@@ -3,7 +3,7 @@ import { red } from "@mui/material/colors";
 
 let theme = createTheme({
     palette: {
-        redmain: "#f44336",
+        redMain: "#f44336",
         primary: {
             main: "#f44336"
         },

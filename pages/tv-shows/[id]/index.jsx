@@ -1,29 +1,31 @@
-import CustomError from "@/component/common/CustomError";
-import Loading from "@/component/common/Loading";
-import TopCast from "@/component/pages/movies/movie-detail/cast/Top-Cast";
-import PhotoMovie from "@/component/pages/movies/movie-detail/images/Photo-Movie";
-import MainDetail from "@/component/pages/movies/movie-detail/main-detail/Main-Detail";
-import { getCasts, getPhotos, getDetailsMovie, } from "@/lib/getDetailMovieAndSeries";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
-const SingleTvShow = ({ tvshow, casts, photos }) => {
+import { getCasts, getPhotos, getDetailsMovie, } from "@/lib/getDetailMovieAndSeries";
+const MainDetail = dynamic(() => import("@/component/pages/movies/movie-detail/main-detail/Main-Detail"));
+const PhotoMovie = dynamic(() => import("@/component/pages/movies/movie-detail/images/Photo-Movie"));
+const TopCast = dynamic(() => import("@/component/pages/movies/movie-detail/cast/Top-Cast"));
+const Loading = dynamic(() => import("@/component/common/Loading"));
+const CustomError = dynamic(() => import("@/component/common/CustomError"));
 
-    if (!tvshow && tvshow !== null) {
+const SingleTvShow = ({ tvShow, casts, photos }) => {
+
+    if (!tvShow && tvShow !== null) {
         return <Loading />
     }
 
-    if (tvshow === null) return <CustomError />
+    if (tvShow === null) return <CustomError />
 
     return (
         <>
             <Head>
-                <title>{tvshow.title.title}</title>
+                <title>{tvShow.title.title}</title>
                 <meta name="description" content="show all details for movie choised" />
             </Head>
             <section>
-                <MainDetail movie={tvshow} />
-                {photos !== null ? <PhotoMovie photos={photos.images} /> : ""}
-                {casts !== null ? <TopCast casts={casts} /> : ""}
+                <MainDetail movie={tvShow} />
+                {photos !== null && <PhotoMovie photos={photos.images} />}
+                {casts !== null && <TopCast casts={casts} />}
             </section>
         </>
     );
@@ -31,16 +33,16 @@ const SingleTvShow = ({ tvshow, casts, photos }) => {
 
 export async function getServerSideProps({ params }) {
 
-    const [datatvshow, photostvshow, caststvshow] = await Promise.all([
+    const [dataTvShow, photosTvShow, castsTvShow] = await Promise.all([
         await new Promise(resolve => setTimeout(() => resolve(getDetailsMovie(params.id)), 1000)),
         await new Promise(resolve => setTimeout(() => resolve(getPhotos(params.id)), 2000)),
         await new Promise(resolve => setTimeout(() => resolve(getCasts(params.id)), 3000))
     ]);
     return {
         props: {
-            tvshow: datatvshow,
-            photos: photostvshow,
-            casts: caststvshow,
+            tvShow: dataTvShow,
+            photos: photosTvShow,
+            casts: castsTvShow,
         }
     }
 }

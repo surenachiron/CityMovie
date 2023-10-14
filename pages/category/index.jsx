@@ -1,4 +1,5 @@
 import Head from "next/head";
+
 import { getGenresList } from "@/lib/category/getShowLists";
 import PreviewGenres from "@/component/pages/category/PreviewGenres";
 
@@ -16,7 +17,6 @@ const PageCategory = ({ genres }) => {
 
 export async function getStaticProps() {
     const imagesGenres = getGenresList()
-
     return {
         props: {
             genres: imagesGenres

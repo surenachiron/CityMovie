@@ -1,27 +1,27 @@
-export function getCurrentTimeProgressBar(currentTimeget) {
-    let minutestest, secondstest;
-    let currenttime = currentTimeget
-    minutestest = Math.floor(currenttime / 60);
-    minutestest = (minutestest >= 10) ? minutestest : minutestest;
-    secondstest = Math.floor(currenttime % 60);
-    secondstest = (secondstest >= 10) ? secondstest : secondstest;
+export function getCurrentTimeProgressBar(currentTimeGet) {
+    let minutesTest, secondsTest;
+    let currentTime = currentTimeGet
+    minutesTest = Math.floor(currentTime / 60);
+    minutesTest = (minutesTest >= 10) ? minutesTest : minutesTest;
+    secondsTest = Math.floor(currentTime % 60);
+    secondsTest = (secondsTest >= 10) ? secondsTest : secondsTest;
 
-    if (minutestest > 0) {
-        return minutestest + ":" + secondstest
+    if (minutesTest > 0) {
+        return minutesTest + ":" + secondsTest
     }
-    return "0:" + secondstest
+    return "0:" + secondsTest
 }
 
-export function getDurationTimeProgressBar(currentTimeget) {
-    let minutestest, secondstest;
-    let currenttime = currentTimeget
-    minutestest = Math.floor(currenttime / 60);
-    minutestest = (minutestest >= 10) ? minutestest : minutestest;
-    secondstest = Math.floor(currenttime % 60);
-    secondstest = (secondstest >= 10) ? secondstest : secondstest;
+export function getDurationTimeProgressBar(currentTimeGet) {
+    let minutesTest, secondsTest;
+    let currentTime = currentTimeGet
+    minutesTest = Math.floor(currentTime / 60);
+    minutesTest = (minutesTest >= 10) ? minutesTest : minutesTest;
+    secondsTest = Math.floor(currentTime % 60);
+    secondsTest = (secondsTest >= 10) ? secondsTest : secondsTest;
 
-    if (minutestest > 0) {
-        return minutestest + ":" + secondstest
+    if (minutesTest > 0) {
+        return minutesTest + ":" + secondsTest
     }
-    return "0:" + secondstest
+    return "0:" + secondsTest
 }

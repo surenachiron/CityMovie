@@ -1,24 +1,24 @@
 import { Box } from "@mui/material";
 import TrendingMovie from "../movies/Trending-Movie";
 import TrendingTvShows from "../tv-shows/Trending-TvShows";
-import SliderComminSoon from "./commingsoon/SliderComminSoon";
-import PreviewGenresHome from "./genres/PreviewGenresHome";
+import SliderComingSoon from "./comingSoon/SliderComingSoon";
+import PreviewGenres from "../category/PreviewGenres";
 
-const HomeContext = ({ trendMovies, trendTvShow, commingSoonMovie, genres, toprateMovie, toprateSeries }) => {
+const HomeContext = ({ trendMovies, trendTvShow, comingSoonMovie, genres }) => {
 
     return (
         <div>
             <Box>
-                {commingSoonMovie === null ? "" :
-                    <SliderComminSoon commingSoonMovie={commingSoonMovie} />
+                {(comingSoonMovie !== null) &&
+                    <SliderComingSoon comingSoonMovie={comingSoonMovie} />
                 }
-                {trendMovies === null || trendMovies.length <= 1 || trendMovies.message ? "" :
+                {(trendMovies !== null) &&
                     <TrendingMovie movies={trendMovies} />
                 }
-                {trendTvShow === null || trendTvShow.length <= 1 || trendTvShow.message ? "" :
+                {(trendTvShow !== null) &&
                     <TrendingTvShows tvShows={trendTvShow} />
                 }
-                <PreviewGenresHome genres={genres} />
+                <PreviewGenres genres={genres} />
             </Box>
         </div>
     );

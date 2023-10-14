@@ -1,7 +1,9 @@
+import dynamic from "next/dynamic";
 import { Container, ThemeProvider } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme'
-import Header from './header/Header';
+
+const Header = dynamic(() => import("./header/Header"));
 
 const Layout = ({ children }) => {
     return (
@@ -9,8 +11,6 @@ const Layout = ({ children }) => {
             <CssBaseline />
             <Container fixed>
                 <Header />
-            </Container>
-            <Container fixed>
                 {children}
             </Container>
         </ThemeProvider>

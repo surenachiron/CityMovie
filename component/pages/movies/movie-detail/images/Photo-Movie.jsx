@@ -1,27 +1,22 @@
 import Image from "next/image";
 import { Box, Typography } from "@mui/material";
+import classes from "./Style-PhotoMovie";
 
 const PhotoMovie = ({ photos }) => {
 
     return (
-        <Box sx={{ my: "2rem" }}>
-            <Typography variant="h4" sx={{ mb: "1rem" }}>Photos</Typography>
-            <Box sx={{ position: "relative" }}>
-                <Box sx={{
-                    WebkitOverflowScrolling: "touch", overflowY: "hidden", overflowX: "scroll", whiteSpace: "normal", boxSizing: "border-box", pb: "10px", display: "flex"
-                }} >
+        <Box sx={classes.boxParent}>
+            <Typography variant="h4" sx={classes.titlePhotos}>Photos</Typography>
+            <Box sx={classes.boxMainParent}>
+                <Box sx={classes.boxSubParent} >
                     {photos.map(photo => (
                         <>{photo.url ?
-                            <Box sx={{ minWidth: 300, width: "300px", minHeight: 200, height: "200px", mr: "1rem" }} key={photo.url}>
+                            <Box sx={classes.boxImage} key={photo.url}>
                                 <Image
                                     src={photo.url}
-                                    alt={photo.caption ? photo.caption : ""}
+                                    alt={photo.caption ? photo.caption : "image"}
                                     sizes="100vw"
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        borderRadius: "8px"
-                                    }}
+                                    style={classes.image}
                                     placeholder="blur"
                                     blurDataURL="/images/blur-image.jpg"
                                     width={300}

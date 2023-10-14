@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { Loadingvideo } from "./styled-videoplayer";
+import { LoadingVideoStyle } from "./Style-VideoPlayer";
 import { Box } from "@mui/material";
 
 const LoadingVideo = () => {
     return (
-        <Box sx={Loadingvideo}>
+        <Box sx={LoadingVideoStyle}>
             <Image
-                src={"/images/loading-sppiner.svg"}
+                src={"/images/loading-spinner.svg"}
                 alt="loading gif"
                 width={130}
                 height={130}

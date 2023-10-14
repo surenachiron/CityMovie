@@ -1,18 +1,20 @@
 import { useRef, useState } from 'react';
-import { FaPlay, FaPause, FaExpand, FaCompress, FaVolumeUp, FaVolumeMute, } from 'react-icons/fa';
-import { FaRotateLeft, FaRotateRight } from 'react-icons/fa6';
-import { Box, Button, Slider, Tooltip, Typography } from '@mui/material';
-import { ButtonIcon, ButtonIconFullscreen, IconPlayPouse, boxDetailsFullscreen, boxFullscreen, boxdetailplayvideo, controls, fetures, videoplayer } from './styled-videoplayer.js'
+import { useSelector, useDispatch } from 'react-redux';
+import { setFullScreen, setOpenOptionsLists } from '@/redux/reducers/video-player.js';
+
 import { getCurrentTimeProgressBar, getDurationTimeProgressBar } from './getTime.js';
 import SelectedRate from './Selected-Rate.jsx';
-import { useSelector, useDispatch } from 'react-redux';
-import { setFullScreen, setopenOprionsLists } from '@/redux/reducers/video-player.js';
 import LoadingVideo from './LoadingVideo.jsx';
+import { Box, Button, Slider, Tooltip, Typography } from '@mui/material';
+
+import classes, { ButtonIcon } from './Style-VideoPlayer.js'
+import { FaRotateLeft, FaRotateRight } from 'react-icons/fa6';
+import { FaPlay, FaPause, FaExpand, FaCompress, FaVolumeUp, FaVolumeMute, } from 'react-icons/fa';
 
 const VideoPlayer = ({ url, poster }) => {
 
-    const RateValue = useSelector(state => state.VideoPlayerReduser.rate)
-    const isFullScreen = useSelector(state => state.VideoPlayerReduser.isFullScreen)
+    const RateValue = useSelector(state => state.VideoPlayerReducer.rate)
+    const isFullScreen = useSelector(state => state.VideoPlayerReducer.isFullScreen)
     const dispatch = useDispatch()
 
     const videoContainerRef = useRef(null);
@@ -20,13 +22,13 @@ const VideoPlayer = ({ url, poster }) => {
     const videProgressBar = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(true);
-    const [currentTime, setCurrenTtime] = useState()
+    const [currentTime, setCurrenTTime] = useState()
     const [durationTime, setDurationTime] = useState()
     const [valueProgressBar, setValueProgressBar] = useState(0)
     const [mouseStatus, setMouseStatus] = useState(false)
     const [loadingWaiting, setLoadingWaiting] = useState(false)
 
-    /// for change show video to fullscren or normal
+    /// for change show video to fullscreen or normal
     function handleFullScreen() {
         if (!isFullScreen) {
             videoContainerRef.current.requestFullscreen();
@@ -45,7 +47,7 @@ const VideoPlayer = ({ url, poster }) => {
 
     /// for handle play and pause video
     function handlePlayPause() {
-        dispatch(setopenOprionsLists(false))
+        dispatch(setOpenOptionsLists(false))
         if (isPlaying === true) {
             videoRef.current.pause();
             setIsPlaying(false);
@@ -55,30 +57,30 @@ const VideoPlayer = ({ url, poster }) => {
         }
     };
 
-    function handleonPause() {
+    function handleOnPause() {
         setIsPlaying(false)
         setLoadingWaiting(false)
     }
 
     /// for handle 10 second backward and forward
-    function handlebackward() {
+    function handleBackward() {
         videoRef.current.currentTime -= 10
         setValueProgressBar(valueProgressBar - 10)
     }
-    function handleforward() {
+    function handleForward() {
         videoRef.current.currentTime += 10
         setValueProgressBar(valueProgressBar + 10)
     }
 
     /// when current time change we change progress bar to current time and we also handle change position progress bar 
-    function updatevideoplaying(e) {
+    function updateVideoPlaying(e) {
         setMouseStatus(false)
         setLoadingWaiting(false)
         videoRef.current.playbackRate = RateValue
         if (!mouseStatus) {
             setValueProgressBar(e.target.currentTime / e.target.duration * 100);
         }
-        setCurrenTtime(getCurrentTimeProgressBar(e.target.currentTime))
+        setCurrenTTime(getCurrentTimeProgressBar(e.target.currentTime))
         setDurationTime(getDurationTimeProgressBar(e.target.duration))
     }
 
@@ -87,10 +89,10 @@ const VideoPlayer = ({ url, poster }) => {
         videoRef.current.currentTime = newValue
     }
 
-    function formousedownprogressbar() {
+    function forMouseDownProgressbar() {
         setMouseStatus(!mouseStatus)
     }
-    function formouseupprogressbar() {
+    function forMouseUpProgressbar() {
         setMouseStatus(!mouseStatus)
     }
 
@@ -103,18 +105,18 @@ const VideoPlayer = ({ url, poster }) => {
     }
 
     return (
-        <Box sx={videoplayer} ref={videoContainerRef}>
+        <Box sx={classes.boxMainParent} ref={videoContainerRef}>
 
-            <video ref={videoRef} poster={poster} onClick={handlePlayPause} onPlay={() => { setIsPlaying(true) }} onPause={handleonPause} onTimeUpdate={e => updatevideoplaying(e)} onLoadedData={handleOnLoadData} onWaiting={handleWaitingVideo} style={{ height: "100%", width: "100%" }}>
+            <video ref={videoRef} poster={poster} onClick={handlePlayPause} onPlay={() => { setIsPlaying(true) }} onPause={handleOnPause} onTimeUpdate={e => updateVideoPlaying(e)} onLoadedData={handleOnLoadData} onWaiting={handleWaitingVideo} style={classes.videoStyle}>
                 <source src={url} type="video/mp4" />
             </video>
 
-            {loadingWaiting ?
+            {loadingWaiting &&
                 <LoadingVideo />
-                : ""}
+            }
 
             {isFullScreen ?
-                <Box sx={controls}>
+                <Box sx={classes.boxControlsVideo}>
                     <Slider
                         size="small"
                         max="100"
@@ -123,24 +125,24 @@ const VideoPlayer = ({ url, poster }) => {
                         step="1"
                         aria-label="Small"
                         ref={videProgressBar}
-                        sx={{ color: "#f44336", pb: "5px" }}
+                        sx={classes.sliderProgressVideo}
                         onChange={handleProgressChange}
-                        onMouseDown={formousedownprogressbar}
-                        onMouseUp={formouseupprogressbar}
+                        onMouseDown={forMouseDownProgressbar}
+                        onMouseUp={forMouseUpProgressbar}
                     />
-                    <Box sx={boxDetailsFullscreen}>
-                        <Box sx={boxFullscreen}>
-                            <Box sx={{ mr: "1rem" }}>
+                    <Box sx={classes.boxDetailsFullscreen}>
+                        <Box sx={classes.boxFullscreen}>
+                            <Box sx={classes.boxPlayPause}>
                                 <Tooltip title="Backward" placement="top">
-                                    <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handlebackward}>
+                                    <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleBackward}>
                                         <FaRotateLeft fontSize="1.3rem" />
                                     </Button>
                                 </Tooltip>
-                                <Button variant="text" color="inherit" sx={IconPlayPouse} onClick={handlePlayPause}>
+                                <Button variant="text" color="inherit" sx={classes.IconPlayPause} onClick={handlePlayPause}>
                                     {isPlaying ? <FaPause fontSize="1.3rem" /> : <FaPlay fontSize="1.3rem" />}
                                 </Button>
                                 <Tooltip title="Forward" placement="top">
-                                    <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleforward}>
+                                    <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleForward}>
                                         <FaRotateRight fontSize="1.3rem" />
                                     </Button>
                                 </Tooltip>
@@ -148,12 +150,12 @@ const VideoPlayer = ({ url, poster }) => {
                             <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleVolumeChange}>
                                 {volume ? <FaVolumeUp fontSize="1.3rem" /> : <FaVolumeMute fontSize="1.3rem" />}
                             </Button>
-                            <Typography variant='body2' sx={{ ml: "1rem" }}>{currentTime ? currentTime + "/" : ""}</Typography>
-                            <Typography variant='body2'>{durationTime ? durationTime : ""}</Typography>
+                            <Typography variant='body2' sx={classes.spanCurrentTime}>{currentTime && currentTime + "/"}</Typography>
+                            <Typography variant='body2'>{durationTime && durationTime}</Typography>
                         </Box>
-                        <Box sx={boxFullscreen}>
+                        <Box sx={classes.boxFullscreen}>
                             <SelectedRate />
-                            <Button variant="text" color="inherit" sx={ButtonIconFullscreen} onClick={handleFullScreen}>
+                            <Button variant="text" color="inherit" sx={classes.buttonIconFullscreen} onClick={handleFullScreen}>
                                 {isFullScreen ? <FaCompress fontSize="1.3rem" /> : <FaExpand fontSize="1.3rem" />}
                             </Button>
                         </Box>
@@ -161,7 +163,7 @@ const VideoPlayer = ({ url, poster }) => {
                 </Box>
                 :
                 <>
-                    <Box sx={fetures}>
+                    <Box sx={classes.boxFeatures}>
                         <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleVolumeChange}>
                             {volume ? <FaVolumeUp fontSize="1.3rem" /> : <FaVolumeMute fontSize="1.3rem" />}
                         </Button>
@@ -173,7 +175,7 @@ const VideoPlayer = ({ url, poster }) => {
                         </Box>
                     </Box>
 
-                    <Box sx={controls}>
+                    <Box sx={classes.boxControlsVideo}>
                         <Slider
                             size="small"
                             max="100"
@@ -182,29 +184,29 @@ const VideoPlayer = ({ url, poster }) => {
                             step="1"
                             aria-label="Small"
                             ref={videProgressBar}
-                            sx={{ color: "#f44336", pb: "5px" }}
+                            sx={classes.sliderProgressVideo}
                             onChange={handleProgressChange}
-                            onMouseDown={formousedownprogressbar}
-                            onMouseUp={formouseupprogressbar}
+                            onMouseDown={forMouseDownProgressbar}
+                            onMouseUp={forMouseUpProgressbar}
                         />
-                        <Box sx={boxdetailplayvideo}>
-                            <Typography variant='body2'>{currentTime ? currentTime : ""}</Typography>
+                        <Box sx={classes.boxDetailPlayVideo}>
+                            <Typography variant='body2'>{currentTime && currentTime}</Typography>
                             <Box>
                                 <Tooltip title="Backward" placement="top">
-                                    <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handlebackward}>
+                                    <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleBackward}>
                                         <FaRotateLeft fontSize="1.3rem" />
                                     </Button>
                                 </Tooltip>
-                                <Button variant="text" color="inherit" sx={IconPlayPouse} onClick={handlePlayPause}>
+                                <Button variant="text" color="inherit" sx={classes.IconPlayPause} onClick={handlePlayPause}>
                                     {isPlaying ? <FaPause fontSize="1.3rem" /> : <FaPlay fontSize="1.3rem" />}
                                 </Button>
                                 <Tooltip title="Forward" placement="top">
-                                    <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleforward}>
+                                    <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleForward}>
                                         <FaRotateRight fontSize="1.3rem" />
                                     </Button>
                                 </Tooltip>
                             </Box>
-                            <Typography variant='body2'>{durationTime ? durationTime : ""}</Typography>
+                            <Typography variant='body2'>{durationTime && durationTime}</Typography>
                         </Box>
                     </Box>
                 </>

@@ -4,15 +4,15 @@ const Video_Player = createSlice({
     name: 'video-player',
     initialState: {
         rate: 1,
-        openOprionsLists: false,
+        openOptionsLists: false,
         isFullScreen: false
     },
     reducers: {
         setRate: (state, action) => {
             state.rate = action.payload
         },
-        setopenOprionsLists: (state, action) => {
-            state.openOprionsLists = action.payload
+        setOpenOptionsLists: (state, action) => {
+            state.openOptionsLists = action.payload
         },
         setFullScreen: (state, action) => {
             state.isFullScreen = action.payload
@@ -20,5 +20,5 @@ const Video_Player = createSlice({
     }
 })
 
-export const { setRate, setopenOprionsLists, setFullScreen } = Video_Player.actions;
+export const { setRate, setOpenOptionsLists, setFullScreen } = Video_Player.actions;
 export default Video_Player.reducer;

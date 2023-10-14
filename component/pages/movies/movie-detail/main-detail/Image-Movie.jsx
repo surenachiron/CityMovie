@@ -1,19 +1,16 @@
 import Image from "next/image";
 import { Box } from "@mui/material";
+import classes from './Style-ImageMovie'
 
 const ImageMovie = ({ image, title }) => {
 
     return (
-        <Box sx={{ borderRadius: "20px", position: "relative", display: "block", width: { lg: "32%", md: "45%", sm: "50%", xs: "60%" }, height: { lg: "425px", xs: "350px" } }}>
+        <Box sx={classes.boxImageMovie}>
             <Image
                 src={image ? image : "/images/blur-image-svg.svg"}
-                alt={title ? title : ""}
+                alt={title ? title : "image"}
                 sizes="100vw"
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: "5px",
-                }}
+                style={classes.image}
                 placeholder="blur"
                 blurDataURL="/images/blur-image.jpg"
                 width={300}

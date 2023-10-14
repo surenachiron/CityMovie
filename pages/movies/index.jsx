@@ -1,32 +1,29 @@
 import Head from "next/head";
+import { Box } from "@mui/material";
+
 import { getPapularMovies, getTopRatedMovies } from "@/lib/movies/getMovies";
 import Loading from "@/component/common/Loading";
 import TrendingMovie from "@/component/pages/movies/Trending-Movie";
 import CustomError from "@/component/common/CustomError";
 import TopRatedMovie from "@/component/pages/movies/TopRated-Movie";
-import { Box } from "@mui/material";
 
-const ListMovies = ({ trendingmovies, topratedmovies }) => {
+const ListMovies = ({ trendingMovies, topRatedMovies }) => {
 
-   if ((!trendingmovies && trendingmovies !== null) || (!topratedmovies && topratedmovies !== null)) {
+   if ((!trendingMovies && trendingMovies !== null) || (!topRatedMovies && topRatedMovies !== null)) {
       return <Loading />
    }
 
-   if (trendingmovies === null && topratedmovies === null) return <CustomError />
+   if (trendingMovies === null && topRatedMovies === null) return <CustomError />
 
    return (
       <>
          <Head>
             <title>Movies</title>
-            <meta name="description" content="dislpay movoies of top until last" />
+            <meta name="description" content="display movies of top until last" />
          </Head>
          <Box>
-            {trendingmovies === null || trendingmovies.length <= 1 || trendingmovies.message ? "" :
-               <TrendingMovie movies={trendingmovies} />
-            }
-            {topratedmovies === null || topratedmovies.length <= 1 || topratedmovies.message ? "" :
-               <TopRatedMovie movies={topratedmovies} />
-            }
+            {(trendingMovies !== null) && <TrendingMovie movies={trendingMovies} />}
+            {(topRatedMovies !== null) && <TopRatedMovie movies={topRatedMovies} />}
          </Box>
       </>
    );
@@ -35,14 +32,14 @@ const ListMovies = ({ trendingmovies, topratedmovies }) => {
 export async function getStaticProps() {
 
    const [dataTrendingMovie, dataTopRatedMovie] = await Promise.all([
-      await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 2000)),
-      await new Promise(resolve => setTimeout(() => resolve(getTopRatedMovies()), 4000)),
+      await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 1000)),
+      await new Promise(resolve => setTimeout(() => resolve(getTopRatedMovies()), 3000)),
    ]);
 
    return {
       props: {
-         trendingmovies: dataTrendingMovie,
-         topratedmovies: dataTopRatedMovie
+         trendingMovies: dataTrendingMovie,
+         topRatedMovies: dataTopRatedMovie
       },
       revalidate: 172800
    }

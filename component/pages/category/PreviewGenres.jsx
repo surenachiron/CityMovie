@@ -1,37 +1,40 @@
-import { Typography } from "@mui/material";
 import Image from "next/image";
-import { BoxContentPreviewGenresLarge, BoxImagePreviewGenresLarge, BoxTitlePreviewGenresLarge, MainBoxPreviewGenresLarge } from "./styled-previewgenres";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import { Typography } from "@mui/material";
+import { BoxContentPreviewGenresLarge, BoxImagePreviewGenresLarge, BoxTitlePreviewGenresLarge, ImageLargeStyle, ImageSmStyle, MainBoxPreviewGenresLarge, TitleInSm } from "./Style-PreviewGenres";
 
 const PreviewGenres = ({ genres }) => {
 
-    const browserwidth = useSelector(state => state.Other.browserWidth)
+    const gerBrowserWidth = useSelector(state => state.Other.browserWidth)
+    const Router = useRouter()
 
     return (
         <>
+            {Router.pathname === "/" && gerBrowserWidth < 900 && <Typography variant="h4" sx={TitleInSm}>Genres</Typography>}
             <MainBoxPreviewGenresLarge>
                 {genres.map((genre) => (
                     <BoxContentPreviewGenresLarge sx={{ marginTop: { md: genre.style.marginTop } }} key={genre.title}>
                         <Link href={genre.href}>
                             <BoxImagePreviewGenresLarge>
-                                {browserwidth >= 900 ?
+                                {gerBrowserWidth >= 900 ?
                                     <Image
                                         src={genre.img ? genre.img : "/images/blur-image-svg.svg"}
-                                        alt={genre.title ? genre.title : ""}
+                                        alt={genre.title ? genre.title : "image"}
                                         width={180}
                                         height={350}
-                                        style={{ height: "100%", borderRadius: "10px" }}
+                                        style={ImageLargeStyle}
                                         placeholder="blur"
                                         blurDataURL="/images/blur-image.jpg"
                                     />
                                     :
                                     <Image
                                         src={genre.img ? genre.img : "/images/blur-image-svg.svg"}
-                                        alt={genre.title ? genre.title : ""}
+                                        alt={genre.title ? genre.title : "image"}
                                         width={180}
                                         height={350}
-                                        style={{ height: "100%", width: "100%", borderRadius: "10px" }}
+                                        style={ImageSmStyle}
                                         placeholder="blur"
                                         blurDataURL="/images/blur-image.jpg"
                                     />

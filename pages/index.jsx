@@ -1,27 +1,29 @@
 import Head from 'next/head'
-import CustomError from '@/component/common/CustomError'
-import Loading from '@/component/common/Loading'
-import HomeContext from '@/component/pages/home/Home-Context'
+import dynamic from 'next/dynamic';
+
+const CustomError = dynamic(() => import("@/component/common/CustomError"));
+const Loading = dynamic(() => import("@/component/common/Loading"));
+const HomeContext = dynamic(() => import("@/component/pages/home/Home-Context"));
 import { getPapularTvShows } from '@/lib/TvShows/getTvShows'
-import { getCommingSoonMovie } from '@/lib/comming-soon/getComingSoon'
+import { getComingSoonMovie } from '@/lib/comingSoon/getComingSoon'
 import { getPapularMovies } from '@/lib/movies/getMovies'
 import { getGenresList } from '@/lib/category/getShowLists'
 
-const Home = ({ commingsoon, trendMovies, trendTvShow, genres }) => {
+const Home = ({ comingSoon, trendMovies, trendTvShow, genres }) => {
 
-  if ((!commingsoon && commingsoon !== null) || (!trendMovies && trendMovies !== null) || (!trendTvShow && trendTvShow !== null)) {
+  if ((!comingSoon && comingSoon !== null) || (!trendMovies && trendMovies !== null) || (!trendTvShow && trendTvShow !== null)) {
     return <Loading />
   }
-  if (trendMovies === null && trendMovies === null && commingsoon === null) return <CustomError />
+  if (trendMovies === null && trendMovies === null && comingSoon === null) return <CustomError />
 
   return (
     <>
       <Head>
         <title>City Movie</title>
-        <meta name="description" content="citymovie a platform for shows trand movie ans series" />
+        <meta name="description" content="cityMovie a platform for shows trend movie ans series" />
       </Head>
       <div>
-        <HomeContext trendMovies={trendMovies} trendTvShow={trendTvShow} commingSoonMovie={commingsoon} genres={genres} />
+        <HomeContext trendMovies={trendMovies} trendTvShow={trendTvShow} comingSoonMovie={comingSoon} genres={genres} />
       </div>
     </>
   )
@@ -29,20 +31,19 @@ const Home = ({ commingsoon, trendMovies, trendTvShow, genres }) => {
 
 export async function getStaticProps() {
 
-  /// we use this approache with setTimeout because we have limit in request to api actually we can 10 request per second 
-  const [datacommingsoon, datatrendMovies, datatrendTvShows] = await Promise.all([
-    await new Promise(resolve => setTimeout(() => resolve(getCommingSoonMovie()), 2000)),
-    await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 4000)),
+  /// we use this approach with setTimeout because we have limit in request to api actually we can 10 request per second 
+  const [dataComingSoon, dataTrendMovies, dataTrendTvShows] = await Promise.all([
+    await new Promise(resolve => setTimeout(() => resolve(getComingSoonMovie()), 1000)),
+    await new Promise(resolve => setTimeout(() => resolve(getPapularMovies()), 3000)),
     await new Promise(resolve => setTimeout(() => resolve(getPapularTvShows()), 6000)),
   ]);
-
   const imagesGenres = getGenresList()
 
   return {
     props: {
-      commingsoon: datacommingsoon,
-      trendMovies: datatrendMovies,
-      trendTvShow: datatrendTvShows,
+      comingSoon: dataComingSoon,
+      trendMovies: dataTrendMovies,
+      trendTvShow: dataTrendTvShows,
       genres: imagesGenres
     }
   }

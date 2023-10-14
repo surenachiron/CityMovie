@@ -1,8 +1,11 @@
-import { ButtonIcon } from "@/utils/videoplayer/styled-videoplayer";
-import { Box, Button } from "@mui/material";
-import { FaSearch } from 'react-icons/fa'
-import { setFocusInput, setOpenInput } from "@/redux/reducers/serach";
 import { useDispatch } from "react-redux";
+
+import { setFocusInput, setOpenInput } from "@/redux/reducers/search";
+import { Box, Button } from "@mui/material";
+import { classesSearchButton } from "./Style-Search";
+import { ButtonIcon } from "../videoPlayer/Style-VideoPlayer";
+
+import { FaSearch } from 'react-icons/fa'
 
 const SearchButton = () => {
 
@@ -15,7 +18,7 @@ const SearchButton = () => {
 
     return (
         <div>
-            <Box sx={{ mr: { xs: "1rem", md: "1rem" } }}>
+            <Box sx={classesSearchButton.boxButtonSearch}>
                 <Button variant="text" color="inherit" sx={ButtonIcon} onClick={ChangeStatusInput}>
                     <FaSearch fontSize="1rem" />
                 </Button>

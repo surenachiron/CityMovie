@@ -1,74 +1,71 @@
 import { useState } from 'react';
 import { Box, Button, List, ListItemButton, ListItemText, Divider } from '@mui/material';
 import { FaRegSun, FaArrowLeft } from 'react-icons/fa'
-import { ButtonIcon, ListRate, OprionsLists, ListItemTextStyle, ListItemButtonStyle, OprionsListsFullscreen, ListRateFullscreen } from './styled-videoplayer';
+import { ButtonIcon, } from './Style-VideoPlayer';
+import classes from './Style-SelectedRate';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRate, setopenOprionsLists } from '@/redux/reducers/video-player';
+import { setRate, setOpenOptionsLists } from '@/redux/reducers/video-player';
 
 
 const SelectedRate = () => {
 
     const dispatch = useDispatch()
-    const OptionsListsStatus = useSelector(state => state.VideoPlayerReduser.openOprionsLists)
-    const RateValue = useSelector(state => state.VideoPlayerReduser.rate)
-    const isFullScreen = useSelector(state => state.VideoPlayerReduser.isFullScreen)
+    const OptionsListsStatus = useSelector(state => state.VideoPlayerReducer.openOptionsLists)
+    const RateValue = useSelector(state => state.VideoPlayerReducer.rate)
+    const isFullScreen = useSelector(state => state.VideoPlayerReducer.isFullScreen)
 
-    const [openRateList, setOpneRateList] = useState(false);
+    const [openRateList, setOpenRateList] = useState(false);
 
     const options = ['0.5', '0.75', '1', '1.25', '1.5', '1.75', '2',];
 
-    function handleshowOptions() {
-        if (openRateList === true) dispatch(setopenOprionsLists(false))
-        else dispatch(setopenOprionsLists(!OptionsListsStatus))
-        setOpneRateList(false)
+    function handleShowOptions() {
+        if (openRateList === true) dispatch(setOpenOptionsLists(false))
+        else dispatch(setOpenOptionsLists(!OptionsListsStatus))
+        setOpenRateList(false)
     };
 
     function handleHideSpeedRate() {
-        dispatch(setopenOprionsLists(false))
-        setOpneRateList(true)
+        dispatch(setOpenOptionsLists(false))
+        setOpenRateList(true)
     };
 
     function handleShowSpeedRate() {
-        dispatch(setopenOprionsLists(true))
-        setOpneRateList(false)
+        dispatch(setOpenOptionsLists(true))
+        setOpenRateList(false)
     };
 
     function handleShowRateList(event, index) {
         dispatch(setRate(options[index]))
-        dispatch(setopenOprionsLists(true))
-        setOpneRateList(false)
+        dispatch(setOpenOptionsLists(true))
+        setOpenRateList(false)
     };
 
     return (
-        <Box sx={{ ml: "10px", position: "relative" }}>
-            <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleshowOptions}>
+        <Box sx={classes.boxMainParent}>
+            <Button variant="text" color="inherit" sx={ButtonIcon} onClick={handleShowOptions}>
                 <FaRegSun fontSize="1.3rem" />
             </Button>
             {OptionsListsStatus ?
-                <Box sx={isFullScreen === false ? OprionsLists : OprionsListsFullscreen}>
+                <Box sx={isFullScreen === false ? classes.optionsLists : classes.optionsListsFullscreen}>
                     <List component="nav" aria-label="secondary mailbox folder">
                         <ListItemButton
                             onClick={handleHideSpeedRate}
-                            sx={{ p: "0 0 0 7px", fontSize: "10px" }}
+                            sx={classes.listItemButtonStyle}
                         >
-                            <ListItemText primary={`Speed ${RateValue}`} sx={{
-                                "& .MuiListItemText-primary": {
-                                    fontSize: { xs: ".7rem", md: ".8rem" },
-                                }
-                            }} />
+                            <ListItemText primary={`Speed ${RateValue}`} sx={classes.listItemTextStyle} />
                         </ListItemButton>
                     </List>
                 </Box>
                 : <></>}
             {openRateList ?
-                <Box sx={isFullScreen === false ? ListRate : ListRateFullscreen}>
+                <Box sx={isFullScreen === false ? classes.listRate : classes.listRateFullscreen}>
                     <List component="nav" aria-label="secondary mailbox folder">
                         <ListItemButton
                             onClick={handleShowSpeedRate}
-                            sx={ListItemButtonStyle}
+                            sx={classes.listItemButtonStyle}
                         >
-                            <FaArrowLeft fontSize="1rem" style={{ marginRight: "5px" }} />
-                            <ListItemText primary={"Back"} sx={ListItemTextStyle} />
+                            <FaArrowLeft fontSize="1rem" style={classes.iconArrowLeft} />
+                            <ListItemText primary={"Back"} sx={classes.listItemTextStyle} />
                         </ListItemButton>
                         <Divider />
                         {options.map((rate, index) => (
@@ -76,10 +73,10 @@ const SelectedRate = () => {
                                 <ListItemButton
                                     selected={RateValue === rate}
                                     onClick={(event) => handleShowRateList(event, index)}
-                                    sx={ListItemButtonStyle}
+                                    sx={classes.listItemButtonStyle}
                                     key={index}
                                 >
-                                    <ListItemText primary={rate === "1" ? "Normal" : rate} sx={ListItemTextStyle} />
+                                    <ListItemText primary={rate === "1" ? "Normal" : rate} sx={classes.listItemTextStyle} />
                                 </ListItemButton>
                                 <Divider />
                             </>

@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-const SimpleLoading = ({width, height}) => {
+const SimpleLoading = ({ width, height }) => {
     return (
         <Image
-            src={"/images/loading-sppiner.svg"}
+            src={"/images/loading-spinner.svg"}
             alt="loading gif"
             width={width}
             height={height}

@@ -1,5 +1,7 @@
 import Head from "next/head";
-import NotFound from "@/component/common/NotFound";
+import dynamic from "next/dynamic";
+
+const NotFound = dynamic(() => import("@/component/common/NotFound"));
 
 const Custom404 = () => {
 

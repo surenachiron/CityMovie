@@ -1,4 +1,4 @@
-import { options } from "@/lib/confing";
+import { options } from "@/lib/config";
 
 async function handler(req, res) {
 

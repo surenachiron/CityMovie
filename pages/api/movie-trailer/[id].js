@@ -1,4 +1,4 @@
-import { options } from "@/lib/confing";
+import { options } from "@/lib/config";
 
 async function handler(req, res) {
 
@@ -11,13 +11,13 @@ async function handler(req, res) {
             return;
         }
 
-        const urlgetidvedio = `https://online-movie-database.p.rapidapi.com/title/get-videos?tconst=${id}&limit=25&region=US`;
+        const urlDetIdVideo = `https://online-movie-database.p.rapidapi.com/title/get-videos?tconst=${id}&limit=25&region=US`;
         try {
-            const responseidvideo = await fetch(urlgetidvedio, options);
-            const resultidvideo = await responseidvideo.json();
-            const idvideo = resultidvideo.resource.videos.find(vid => vid.contentType === 'Trailer').id.slice(9,)
+            const responseIdVideo = await fetch(urlDetIdVideo, options);
+            const resultIdVideo = await responseIdVideo.json();
+            const idVideo = resultIdVideo.resource.videos.find(vid => vid.contentType === 'Trailer').id.slice(9,)
 
-            const url = `https://online-movie-database.p.rapidapi.com/title/get-video-playback?viconst=${idvideo}`;
+            const url = `https://online-movie-database.p.rapidapi.com/title/get-video-playback?viconst=${idVideo}`;
             const response = await fetch(url, options);
             const result = await response.json();
             res.status(201).json(result)
