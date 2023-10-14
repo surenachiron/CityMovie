@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import { setBrowserWidth } from '@/redux/reducers/other'
 import { Box, Button, Typography, Grid } from '@mui/material'
-import classes from './Style-Header'
+import classes from './Style-Header.js'
 
 import HamburgerMenu from './HamburgerMenu'
 import SearchButton from '@/utils/search/SearchButton'
