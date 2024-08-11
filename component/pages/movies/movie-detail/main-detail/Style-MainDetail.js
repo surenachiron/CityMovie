@@ -6,7 +6,7 @@ export const BeforeDot = styled('div')(({ theme }) => ({
     },
     [theme.breakpoints.up("md")]: {
         display: "flex", justifyContent: "center", alignItems: "center", ":before": {
-            fontSize: "1em", lineHeight: '1', content: '"•"', width: "100%", height: "100%", display: "flex", margin: "0 6px"
+            fontSize: "1em", lineHeight: '1', content: '"•"', height: "100%", display: "flex", margin: "0 6px"
         }
     }
 }));
