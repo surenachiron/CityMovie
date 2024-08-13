@@ -10,7 +10,7 @@ const SearchButton = () => {
   const dispatch = useDispatch();
 
   function ChangeStatusInput() {
-    dispatch(setOpenInput(""));
+    dispatch(setOpenInput(true));
     dispatch(setFocusInput(true));
   }
 

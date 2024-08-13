@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-
 import { useRouter } from "next/router";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -26,10 +25,15 @@ const SearchInput = () => {
 
   const dispatch = useDispatch();
   const focusInput = useSelector((state) => state.SearchReducer.focusInput);
+  const statusInput = useSelector((state) => state.SearchReducer.statusInput);
   const loadingSearch = useSelector(
     (state) => state.SearchReducer.loadingSearch
   );
   const textSearch = useSelector((state) => state.SearchReducer.textSearch);
+
+  useEffect(() => {
+    if (focusInput) inputSearchRef.current.focus();
+  }, [focusInput]);
 
   useEffect(() => {
     dispatch(setStatusShowResult(0));
@@ -38,10 +42,10 @@ const SearchInput = () => {
         boxInputSearchRef.current &&
         !boxInputSearchRef.current.contains(e.target)
       ) {
+        dispatch(setFocusInput(false));
         if (inputSearchRef.current.value.length === 0) {
-          dispatch(setFocusInput(false));
           dispatch(setOpenInput(false));
-        } else dispatch(setFocusInput(false));
+        }
       }
     };
     document.addEventListener("mousedown", checkIfClickedOutside);
@@ -68,24 +72,11 @@ const SearchInput = () => {
 
   async function handleKeyPressInput(e) {
     if (e.key === "Enter") {
-      const configuration = {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      };
       if (inputSearchRef.current.value.length !== 0) {
         dispatch(setLoadingSearch(true));
         const res = await getSearchResult(inputSearchRef.current.value);
         if (res) dispatch(setDataSearch(res));
         else dispatch(setStatusShowResult(2));
-        // await fetch(
-        //   `/api/search/${inputSearchRef.current.value}`,
-        //   configuration
-        // )
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     dispatch(setDataSearch(data));
-        //   })
-        //   .catch(() => dispatch(setStatusShowResult(2)));
         dispatch(setLoadingSearch(false));
       } else {
         dispatch(setStatusShowResult(1));
@@ -98,10 +89,13 @@ const SearchInput = () => {
     dispatch(setDataSearch([]));
     dispatch(setTextSearch(""));
     dispatch(setLoadingSearch(false));
-    dispatch(setOpenInput(""));
-    dispatch(setFocusInput(true));
+    // todo: close search input when the page change
+    // if (statusInput) {
+    //   dispatch(setOpenInput(false));
+    // }
+    dispatch(setFocusInput(false));
     dispatch(setStatusShowResult(0));
-  }, [router.pathname]);
+  }, [router.asPath]);
 
   return (
     <Box
