@@ -28,7 +28,7 @@ const ContentSm = ({ movie }) => {
                 color="warning"
                 sx={classes.spanRating}
               >
-                {movie.vote_average}
+                {(movie.vote_average * 10).toString().slice(0, 2)}%
               </Button>
             )}
           </Box>

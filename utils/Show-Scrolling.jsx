@@ -1,5 +1,7 @@
 import Link from "next/link";
+
 import { Box, Typography } from "@mui/material";
+
 import classes from "@/utils/Style-ShowScrolling";
 
 const ShowScrolling = ({ movies, type }) => {
@@ -12,7 +14,9 @@ const ShowScrolling = ({ movies, type }) => {
               <div key={movie.id}>
                 <Box key={movie.id} sx={classes.boxData}>
                   <Link
-                    href={type ? `/tv-shows/${movie.id}` : `/movies/${movie.id}`}
+                    href={
+                      type ? `/tv-shows/${movie.id}` : `/movies/${movie.id}`
+                    }
                     style={classes.link}
                   >
                     <Box sx={classes.boxImage}>

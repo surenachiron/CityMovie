@@ -1,8 +1,8 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
+
 import classes from "./Style-Rating";
 
 const Rating = ({ rate }) => {
-  console.log(rate);
   const percentRate = rate * 10;
   return (
     <Box sx={classes.boxParent}>
