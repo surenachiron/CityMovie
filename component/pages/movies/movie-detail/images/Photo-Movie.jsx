@@ -21,6 +21,7 @@ const PhotoMovie = ({ photos, type }) => {
                     }
                     alt={`image ${photo.file_path}`}
                     style={classes.image}
+                    placeholder="/public/images/blur-image.jpg"
                   />
                 </Box>
               )}

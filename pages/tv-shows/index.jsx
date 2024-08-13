@@ -30,7 +30,7 @@ const TvShowList = ({ trendTvShows, topRatedTvShows }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const dataTrendTvShows = await getTrendsTvShows();
   const dataTopRatedTvShows = await getTopRatedTvShows();
 

@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import {
+  getCasts,
   getDetailsMovie,
   getPhotos,
 } from "@/lib/getDetailMovieAndSeries";
@@ -8,8 +9,9 @@ import MainDetail from "@/component/pages/movies/movie-detail/main-detail/Main-D
 import CustomError from "@/component/common/CustomError";
 import Loading from "@/component/common/Loading";
 import PhotoMovie from "@/component/pages/movies/movie-detail/images/Photo-Movie";
+import TopCast from "@/component/pages/movies/movie-detail/cast/Top-Cast";
 
-const SingleMovie = ({ movie, photos }) => {
+const SingleMovie = ({ movie, photos, casts }) => {
   if (!movie && movie !== null) {
     return <Loading />;
   }
@@ -25,7 +27,7 @@ const SingleMovie = ({ movie, photos }) => {
       <section>
         <MainDetail movie={movie} />
         {photos !== null && <PhotoMovie photos={photos.backdrops} />}
-        {/* {casts !== null && <TopCast casts={casts} />} */}
+        {casts !== null && <TopCast casts={casts} />}
       </section>
     </>
   );
@@ -34,11 +36,13 @@ const SingleMovie = ({ movie, photos }) => {
 export async function getServerSideProps({ params }) {
   const dataMovie = await getDetailsMovie(params.id);
   const photosMovie = await getPhotos(params.id);
+  const castsMovie = await getCasts(params.id);
 
   return {
     props: {
       movie: dataMovie,
       photos: photosMovie,
+      casts: castsMovie,
     },
   };
 }
