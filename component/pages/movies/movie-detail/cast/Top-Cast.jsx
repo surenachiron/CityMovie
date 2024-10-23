@@ -4,7 +4,7 @@ import ImageCast from "./Image-Cast";
 import classes from "./Style-Casts";
 
 const TopCast = ({ casts, type }) => {
-  console.log(casts);
+
   return (
     <Box sx={classes.boxParent}>
       <Typography variant="h4" sx={classes.titleTopCast}>

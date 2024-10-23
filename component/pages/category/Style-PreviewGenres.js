@@ -45,7 +45,7 @@ export const BoxContentPreviewGenresLarge = styled('div')(({ theme }) => ({
             width: "370px !important",
         },
     },
-    [theme.breakpoints.only("lg")]: {
+    [theme.breakpoints.up("lg")]: {
         overflow: "hidden",
         position: "relative",
         marginRight: "1rem",
